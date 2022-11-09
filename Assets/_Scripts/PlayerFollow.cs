@@ -9,7 +9,7 @@ public class PlayerFollow : MonoBehaviour
 
     void Update()
     {
-        newPos = Vector3.Lerp(gameObject.transform.position,Player.transform.position,Time.deltaTime);
-        gameObject.transform.position = new Vector3(newPos.x,5,newPos.z);
+        newPos = Vector3.Lerp(gameObject.transform.position, Player.transform.position, Time.deltaTime * 1.5f);
+        gameObject.transform.position = new Vector3(newPos.x, 5, newPos.z);
     }
 }

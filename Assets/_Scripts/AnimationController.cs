@@ -11,16 +11,16 @@ public class AnimationController : MonoBehaviour
 
     void Start()
     {
-        
+
         anim = gameObject.GetComponent<Animator>();
-        playerScript =Player.GetComponent<Bounds>();
-        
+        playerScript = Player.GetComponent<Bounds>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(playerScript.justJump == true)
+        if (playerScript.justJump == true)
         {
             anim.SetBool("jump", true);
         }
@@ -29,11 +29,11 @@ public class AnimationController : MonoBehaviour
             anim.SetBool("jump", false);
 
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow) )
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             gameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow) )
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
         }
@@ -41,7 +41,7 @@ public class AnimationController : MonoBehaviour
         {
             gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow) )
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
