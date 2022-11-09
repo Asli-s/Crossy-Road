@@ -4,13 +4,42 @@ using UnityEngine;
 
 public class CarMovement : MonoBehaviour
 {
-    private int carSpeed = 2;
+    Bounds playerScript;
+    Road roadScript;
+    private int carSpeed = 4;
+
+    private void Start()
+    {
+        playerScript = FindObjectOfType<Bounds>();
+        roadScript= transform.parent.gameObject.GetComponent<Road>();
+        if (roadScript.left == true)
+        {
+            gameObject.transform.Rotate(0, 180,0);
+        }
+    }
+
     void Update()
     {
-        this.gameObject.transform.position += new Vector3(-1, 0, 0) * Time.deltaTime * carSpeed;
-        if (this.gameObject.transform.position.x < -10)
+        if (playerScript.died == false)
         {
-            Destroy(this.gameObject);
+            if (roadScript.left == false)
+            {
+                this.gameObject.transform.position += new Vector3(-1, 0, 0) * Time.deltaTime * carSpeed;
+                if (this.gameObject.transform.position.x < -15)
+                {
+                    Destroy(this.gameObject);
+                }
+            }
+            else
+            {
+
+                this.gameObject.transform.position += new Vector3(1, 0, 0) * Time.deltaTime * carSpeed;
+                if (this.gameObject.transform.position.x >25)
+                {
+                    Destroy(this.gameObject);
+                }
+
+            }
         }
     }
 }

@@ -24,139 +24,128 @@ public class Bounds : MonoBehaviour
     bool validPosition;
 
     bool clickOnce = false;
+    public bool died = false;
+    bool alertShow = false;
 
-
+    public GameObject Alert;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+        if (died == false)
         {
 
-            if (percentage == 1)
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
             {
-                lerpTime = 1;
-                currentLerpTime = 0;
-                justJump = true;
-                firstInput = true;
-                print("jumped" + justJump);
 
-            }
-        }
-
-
-        /* Exact movement on grid */
-        /*
-                if((int)gameObject.transform.position.x % 2 == 0)
+                if (percentage == 1)
                 {
-                    Mathf.Floor(gameObject.transform.position.x);
+                    lerpTime = 1;
+                    currentLerpTime = 0;
+                    justJump = true;
+                    firstInput = true;
+
+
                 }
-                else
+            }
+
+            startPos = gameObject.transform.position;
+
+
+            if (Input.GetKeyDown(KeyCode.RightArrow) && clickOnce == false)
+
+            {
+                endPos = ExactPos(new Vector3(transform.position.x + steps, transform.position.y, transform.position.z));
+
+                nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
+                validPosition = checkValidJump(nextPosition);
+                clickOnce = true;
+
+            }
+            if
+                (Input.GetKeyDown(KeyCode.LeftArrow) && clickOnce == false)
+            {
+                endPos = ExactPos(new Vector3(transform.position.x - steps, transform.position.y, transform.position.z));
+
+                nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
+
+                validPosition = checkValidJump(nextPosition);
+
+                clickOnce = true;
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow) && clickOnce == false)
+            {
+                endPos = ExactPos(new Vector3(transform.position.x, transform.position.y, transform.position.z + steps));
+                nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
+                validPosition = checkValidJump(nextPosition);
+
+                clickOnce = true;
+
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow) && clickOnce == false)
+            {
+                endPos = ExactPos(new Vector3(transform.position.x, transform.position.y, transform.position.z - steps));
+                nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
+                validPosition = checkValidJump(nextPosition);
+                clickOnce = true;
+
+            }
+            if (firstInput == true)
+            {
+                currentLerpTime += Time.deltaTime * 5.5f;
+                percentage = currentLerpTime / lerpTime;
+
+
+                if (validPosition == true)
                 {
-                    Mathf.Ceil(gameObject.transform.position.x);
+
+
+                    gameObject.transform.position = Vector3.Lerp(startPos, endPos, percentage);
+
+
                 }
-                if ((int) gameObject.transform.position.z % 2 == 0)
+                if (percentage > 0.8f)
                 {
-                    Mathf.Floor(gameObject.transform.position.z);
+                    percentage = 1;
                 }
-                else
+                if (Mathf.Round(percentage) == 1)
                 {
-                    Mathf.Ceil(gameObject.transform.position.z);
+                    justJump = false;
+
+
                 }
-                startPos = gameObject.transform.position;*/
+                //either moved or invalid position
+                if (startPos == endPos || validPosition == false)
+                {
 
-        /**/
-        startPos = gameObject.transform.position; 
+                    clickOnce = false;
 
-
-        if (Input.GetKeyDown(KeyCode.RightArrow) && clickOnce ==false)
-
-        {
-            endPos =  ExactPos(   new Vector3(transform.position.x + steps, transform.position.y, transform.position.z));
-
-            nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
-            validPosition = checkValidJump(nextPosition);
-            clickOnce = true;
-
-        }
-        if
-            (Input.GetKeyDown(KeyCode.LeftArrow) && clickOnce == false)
-        {
-              endPos =  ExactPos( new Vector3(transform.position.x - steps, transform.position.y, transform.position.z));
-
-            nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
-
-            validPosition = checkValidJump(nextPosition);
-
-            clickOnce = true;
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow) && clickOnce == false)
-        {
-            endPos = ExactPos( new Vector3(transform.position.x, transform.position.y, transform.position.z + steps));
-            nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
-            validPosition = checkValidJump(nextPosition);
-
-            clickOnce = true;
-
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow) && clickOnce == false)
-        {
-          endPos = ExactPos( new Vector3(transform.position.x, transform.position.y, transform.position.z - steps));
-            nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
-            validPosition = checkValidJump(nextPosition);
-            clickOnce = true;
-
-        }
-        if (firstInput == true)
-        {
-            currentLerpTime += Time.deltaTime * 5.5f;
-            percentage = currentLerpTime / lerpTime;
-            print(validPosition);
-
-            if (validPosition == true)
-            {
-                print("move");
-
-                gameObject.transform.position = Vector3.Lerp(startPos, endPos, percentage);
-                
+                }
 
             }
-            if (percentage > 0.8f)
-            {
-                percentage = 1;
-            }
-            if (Mathf.Round(percentage) == 1)
-            {
-                justJump = false;
-
-
-            }
-            //either moved or invalid position
-            if( startPos== endPos || validPosition == false)
-            {
-
-                clickOnce = false;
-
-            }
+        }
+        if(died ==true && alertShow ==false)
+        {
+            alertShow = true;
+            Alert.SetActive(true);
 
         }
     }
+
+
+
 
     bool checkValidJump(Vector3Int nextPosition)
     {
 
-
-
-
         if (objectTileMap.HasTile(nextPosition) == true)
         {
-          
-
-            return false;
+             return false;
         }
-
 
         return true;
     }
+
+
 
     Vector3 ExactPos(Vector3 position)
     {

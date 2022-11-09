@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Bounds playerScript;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        playerScript = FindObjectOfType<Bounds>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag =="Water")
+        if(other.tag == "Water")
+        {
+
         print(other.tag);
+        }
+        if(other.tag == "Enemy")
+        {
+            print(other.tag);
+            playerScript.died = true;
+            Destroy(other.gameObject);
+
+        }
     }
 }
