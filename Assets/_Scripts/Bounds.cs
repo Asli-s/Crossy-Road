@@ -23,6 +23,7 @@ public class Bounds : MonoBehaviour
     Vector3Int nextPosition;
     bool validPosition;
 
+    bool clickOnce = false;
 
 
 
@@ -41,40 +42,68 @@ public class Bounds : MonoBehaviour
 
             }
         }
-        startPos = gameObject.transform.position;
 
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        /* Exact movement on grid */
+        /*
+                if((int)gameObject.transform.position.x % 2 == 0)
+                {
+                    Mathf.Floor(gameObject.transform.position.x);
+                }
+                else
+                {
+                    Mathf.Ceil(gameObject.transform.position.x);
+                }
+                if ((int) gameObject.transform.position.z % 2 == 0)
+                {
+                    Mathf.Floor(gameObject.transform.position.z);
+                }
+                else
+                {
+                    Mathf.Ceil(gameObject.transform.position.z);
+                }
+                startPos = gameObject.transform.position;*/
+
+        /**/
+        startPos = gameObject.transform.position; 
+
+
+        if (Input.GetKeyDown(KeyCode.RightArrow) && clickOnce ==false)
 
         {
-            endPos = new Vector3(transform.position.x + steps, transform.position.y, transform.position.z);
+            endPos =  ExactPos(   new Vector3(transform.position.x + steps, transform.position.y, transform.position.z));
+
             nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
             validPosition = checkValidJump(nextPosition);
-
+            clickOnce = true;
 
         }
         if
-            (Input.GetKeyDown(KeyCode.LeftArrow))
+            (Input.GetKeyDown(KeyCode.LeftArrow) && clickOnce == false)
         {
-            endPos = new Vector3(transform.position.x - steps, transform.position.y, transform.position.z);
+              endPos =  ExactPos( new Vector3(transform.position.x - steps, transform.position.y, transform.position.z));
+
+            nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
+
+            validPosition = checkValidJump(nextPosition);
+
+            clickOnce = true;
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow) && clickOnce == false)
+        {
+            endPos = ExactPos( new Vector3(transform.position.x, transform.position.y, transform.position.z + steps));
             nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
             validPosition = checkValidJump(nextPosition);
 
+            clickOnce = true;
 
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow) && clickOnce == false)
         {
-            endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + steps);
+          endPos = ExactPos( new Vector3(transform.position.x, transform.position.y, transform.position.z - steps));
             nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
             validPosition = checkValidJump(nextPosition);
-
-
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            endPos = new Vector3(transform.position.x, transform.position.y, transform.position.z - steps);
-            nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
-            validPosition = checkValidJump(nextPosition);
+            clickOnce = true;
 
         }
         if (firstInput == true)
@@ -88,10 +117,9 @@ public class Bounds : MonoBehaviour
                 print("move");
 
                 gameObject.transform.position = Vector3.Lerp(startPos, endPos, percentage);
+                
 
             }
-
-
             if (percentage > 0.8f)
             {
                 percentage = 1;
@@ -101,8 +129,15 @@ public class Bounds : MonoBehaviour
                 justJump = false;
 
 
+            }
+            //either moved or invalid position
+            if( startPos== endPos || validPosition == false)
+            {
+
+                clickOnce = false;
 
             }
+
         }
     }
 
@@ -114,6 +149,7 @@ public class Bounds : MonoBehaviour
 
         if (objectTileMap.HasTile(nextPosition) == true)
         {
+          
 
             return false;
         }
@@ -122,6 +158,28 @@ public class Bounds : MonoBehaviour
         return true;
     }
 
+    Vector3 ExactPos(Vector3 position)
+    {
+        if ((int)position.x % 2 == 0)
+        {
+            position.x = Mathf.Floor(position.x);
+        }
+        else
+        {
+            position.x = Mathf.Ceil(position.x);
+        }
+        if ((int)position.z % 2 == 0)
+        {
+            position.z = Mathf.Floor(position.z);
+        }
+        else
+        {
+            position.z = Mathf.Ceil(position.z);
+        }
+
+
+        return position;
+    }
 
 
 
