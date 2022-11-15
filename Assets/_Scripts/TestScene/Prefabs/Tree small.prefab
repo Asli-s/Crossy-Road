@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7589737158759588121}
   - component: {fileID: 5095190736533686293}
   - component: {fileID: 8152209534830209589}
-  - component: {fileID: 6539735305465321201}
   m_Layer: 0
   m_Name: TreeCrown
   m_TagString: Untagged
@@ -62,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a1d43bccaf823134e9cbc42d41805c7c, type: 2}
+  - {fileID: 2100000, guid: ded0959c5e34a79458fa670f3b752cac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6539735305465321201
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1005328019557181776}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2159460138686322921
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +94,6 @@ GameObject:
   - component: {fileID: 1999802506059743466}
   - component: {fileID: 646670830140942999}
   - component: {fileID: 232091525103872350}
-  - component: {fileID: 7995736168888282165}
   m_Layer: 0
   m_Name: TreeCrown
   m_TagString: Untagged
@@ -159,7 +144,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a1d43bccaf823134e9cbc42d41805c7c, type: 2}
+  - {fileID: 2100000, guid: ded0959c5e34a79458fa670f3b752cac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -181,19 +166,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7995736168888282165
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2159460138686322921}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2283371347302072670
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +177,6 @@ GameObject:
   - component: {fileID: 5421823318916636882}
   - component: {fileID: 39204332766715228}
   - component: {fileID: 3661313556751994355}
-  - component: {fileID: 6023246439448683562}
   m_Layer: 0
   m_Name: TreeCrown
   m_TagString: Untagged
@@ -256,7 +227,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b35ad8d0fe488aa4a8db6523cb4af4bb, type: 2}
+  - {fileID: 2100000, guid: e02569aa381c84e4d9b5e807f684d5ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -278,19 +249,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6023246439448683562
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283371347302072670}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3610968042659836193
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +260,6 @@ GameObject:
   - component: {fileID: 3610968042659836194}
   - component: {fileID: 3610968042659836205}
   - component: {fileID: 3610968042659836204}
-  - component: {fileID: 3610968042659836195}
   m_Layer: 0
   m_Name: TreeTrunk
   m_TagString: Untagged
@@ -353,7 +310,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 916120796ae84d74f9af22ecd854dde2, type: 2}
+  - {fileID: 2100000, guid: f93170060ab9c214bb6e56c1d0634c55, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -375,19 +332,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3610968042659836195
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3610968042659836193}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3610968042944763418
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,8 +341,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3610968042944763419}
-  - component: {fileID: -1758567247959142571}
-  - component: {fileID: 6151647773564952223}
   m_Layer: 0
   m_Name: Tree small
   m_TagString: Plant
@@ -415,7 +357,7 @@ Transform:
   m_GameObject: {fileID: 3610968042944763418}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.3, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3610968042659836194}
@@ -423,35 +365,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &-1758567247959142571
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3610968042944763418}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 1
---- !u!65 &6151647773564952223
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3610968042944763418}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3, y: 4, z: 3}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3610968042983295531
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +376,6 @@ GameObject:
   - component: {fileID: 3610968042983295540}
   - component: {fileID: 3610968042983295543}
   - component: {fileID: 3610968042983295542}
-  - component: {fileID: 3610968042983295541}
   m_Layer: 0
   m_Name: TreeCrown
   m_TagString: Untagged
@@ -514,7 +426,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a1d43bccaf823134e9cbc42d41805c7c, type: 2}
+  - {fileID: 2100000, guid: ded0959c5e34a79458fa670f3b752cac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -536,19 +448,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3610968042983295541
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3610968042983295531}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3902233210439698626
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,7 +495,6 @@ GameObject:
   - component: {fileID: 5082606390807860962}
   - component: {fileID: 2325728177690436868}
   - component: {fileID: 2126122719030843533}
-  - component: {fileID: 4449826823554352530}
   m_Layer: 0
   m_Name: TreeCrown
   m_TagString: Untagged
@@ -647,7 +545,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b35ad8d0fe488aa4a8db6523cb4af4bb, type: 2}
+  - {fileID: 2100000, guid: e02569aa381c84e4d9b5e807f684d5ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -669,16 +567,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4449826823554352530
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5161638349218476947}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

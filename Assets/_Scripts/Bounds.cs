@@ -29,9 +29,20 @@ public class Bounds : MonoBehaviour
 
     public GameObject Alert;
 
+    public bool onWood = false;
+    public bool left =false;
+   public int woodSpeed = 3;
+
+
+
     private void Update()
     {
-        if (died == false)
+       /* if (died == true && alertShow == false)
+        {
+         
+
+        }*/
+         if(died == false)
         {
 
             if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
@@ -41,13 +52,11 @@ public class Bounds : MonoBehaviour
                 {
                     lerpTime = 1;
                     currentLerpTime = 0;
-                    justJump = true;
+                  justJump = true;
                     firstInput = true;
-
-
                 }
+           
             }
-
             startPos = gameObject.transform.position;
 
 
@@ -58,6 +67,7 @@ public class Bounds : MonoBehaviour
 
                 nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
                 validPosition = checkValidJump(nextPosition);
+             
                 clickOnce = true;
 
             }
@@ -69,6 +79,7 @@ public class Bounds : MonoBehaviour
                 nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
 
                 validPosition = checkValidJump(nextPosition);
+            
 
                 clickOnce = true;
             }
@@ -77,8 +88,10 @@ public class Bounds : MonoBehaviour
                 endPos = ExactPos(new Vector3(transform.position.x, transform.position.y, transform.position.z + steps));
                 nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
                 validPosition = checkValidJump(nextPosition);
+             
 
                 clickOnce = true;
+         
 
             }
             if (Input.GetKeyDown(KeyCode.DownArrow) && clickOnce == false)
@@ -87,6 +100,7 @@ public class Bounds : MonoBehaviour
                 nextPosition = objectTileMap.WorldToCell((Vector3)endPos);
                 validPosition = checkValidJump(nextPosition);
                 clickOnce = true;
+             
 
             }
             if (firstInput == true)
@@ -95,17 +109,17 @@ public class Bounds : MonoBehaviour
                 percentage = currentLerpTime / lerpTime;
 
 
-                if (validPosition == true)
+                if (validPosition == true && clickOnce == true)
                 {
 
-
-                    gameObject.transform.position = Vector3.Lerp(startPos, endPos, percentage);
-
+                    transform.position = Vector3.Lerp(startPos, endPos, percentage);
 
                 }
                 if (percentage > 0.8f)
                 {
                     percentage = 1;
+                    justJump = false;
+                    clickOnce = false;
                 }
                 if (Mathf.Round(percentage) == 1)
                 {
@@ -114,7 +128,33 @@ public class Bounds : MonoBehaviour
 
                 }
                 //either moved or invalid position
-                if (startPos == endPos || validPosition == false)
+
+                if (onWood == true)// && clickOnce == false)
+                {
+                    if (left == false)
+                    {
+
+
+                        //    endPos = ExactPos(startPos + new Vector3(-2, 0, 0));
+                        //  gameObject.transform.position = Vector3.Lerp(startPos,endPos, percentage / 12f);
+                        this.gameObject.transform.position += new Vector3(-2, 0, 0) * Time.deltaTime * woodSpeed;
+
+
+                    }
+                    else if (left == true)
+                    {
+
+
+
+                        //     endPos = ExactPos(startPos + new Vector3(2, 0, 0));
+                        this.gameObject.transform.position += new Vector3(2, 0, 0) * Time.deltaTime * woodSpeed;
+
+                        //                        gameObject.transform.position = Vector3.Lerp(startPos, endPos, percentage / 12f);
+                    }
+
+                }
+
+                if (startPos == endPos || validPosition == false )//|| Mathf.Round(percentage) == 1)
                 {
 
                     clickOnce = false;
@@ -123,25 +163,23 @@ public class Bounds : MonoBehaviour
 
             }
         }
-        if(died ==true && alertShow ==false)
-        {
-            alertShow = true;
-            Alert.SetActive(true);
-
-        }
+       
     }
 
-
+   
 
 
     bool checkValidJump(Vector3Int nextPosition)
     {
 
-        if (objectTileMap.HasTile(nextPosition) == true)
-        {
-             return false;
-        }
 
+        if (objectTileMap.HasTile(nextPosition) == true )
+        {
+            print("unvalid");
+
+            return false;
+        }
+        print("valid");
         return true;
     }
 
@@ -151,21 +189,26 @@ public class Bounds : MonoBehaviour
     {
         if ((int)position.x % 2 == 0)
         {
-            position.x = Mathf.Floor(position.x);
+            // position.x = Mathf.Floor(position.x);
+            position.x = (int)position.x; 
+
         }
         else
         {
             position.x = Mathf.Ceil(position.x);
+
         }
         if ((int)position.z % 2 == 0)
         {
             position.z = Mathf.Floor(position.z);
+
         }
         else
         {
             position.z = Mathf.Ceil(position.z);
-        }
 
+        }
+        print(position);
 
         return position;
     }

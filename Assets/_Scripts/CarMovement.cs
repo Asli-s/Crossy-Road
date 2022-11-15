@@ -6,7 +6,7 @@ public class CarMovement : MonoBehaviour
 {
     Bounds playerScript;
     Road roadScript;
-    private int carSpeed = 4;
+    private int carSpeed =6;
 
     private void Start()
     {
