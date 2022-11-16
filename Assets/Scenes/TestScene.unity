@@ -805,7 +805,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373480549}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3120,6 +3120,7 @@ MonoBehaviour:
   riverCell: {fileID: 3536868546543757359, guid: 968c35ffd5bb99a4bb97515563fcd477, type: 3}
   streetCell: {fileID: 3536868546543757359, guid: fd862efdfb856fe4fb47d0ec3e6da31b, type: 3}
   grassCell: {fileID: 3536868546543757359, guid: 0f4423fa7a6c6694fa6339ac0e26bf8d, type: 3}
+  trainCell: {fileID: 3536868546543757359, guid: baf2130be8993c3458e462ec2caa1d22, type: 3}
   floorParent: {fileID: 1909275849}
   plantBarrierParent: {fileID: 1295518498}
   raftObject: {fileID: 4689877555368658382, guid: bf4223775d8135e4d94bb3d63ea378dc, type: 3}
@@ -3129,7 +3130,12 @@ MonoBehaviour:
   plantObjects:
   - {fileID: 3610968042944763418, guid: c4f88dbf512ed5b45b9e87e12cef2436, type: 3}
   - {fileID: 3610968042944763418, guid: ec70b66c42e46824cb376b0a35c58832, type: 3}
+  trafficLightObject: {fileID: 3295282689218901801, guid: 89d45107aeffe594ebd1e1170c02afa0, type: 3}
+  pattelObject: {fileID: 647368344986180740, guid: 8e6ea77530947734f9fdc9091581d839, type: 3}
+  LeftRiverBorder: {fileID: 1555130022778411024, guid: 6defc6ab031e2fe4c8092885f02e4905, type: 3}
+  RightRiverBorder: {fileID: 1555130022778411024, guid: 858b89b4442326045b5d43ae98c03993, type: 3}
   rowNum: 0
+  firstFloor: 0
 --- !u!4 &1909275851
 Transform:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class StreetScript : MonoBehaviour
     Vector3 moveVector = new Vector3(-1, 0, 0);
     int randomPosition;
     int randomCar;
-    float zAdjust = 0.4f;
+    float zAdjust = 0.3f;
    
     void Start()
 
