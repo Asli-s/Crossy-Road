@@ -11,8 +11,11 @@ public class RiverScript : MonoBehaviour
 
     GameObject LeftRiverBorder;
     GameObject RightRiverBorder;
+    GameObject instantiatedBorder;
+
 
     public List<GameObject> raftObjects = new List<GameObject>();
+    FloorData floorScript;
     GameObject raftParent;
     int randomPos;
     public bool leftToRight = false;
@@ -34,10 +37,11 @@ public class RiverScript : MonoBehaviour
     void Start()
 
     {
+         floorScript = this.gameObject.GetComponentInParent<FloorData>();
 
 
 
-    
+
         randomRiverType = Random.Range(0, 3);
 
         if (randomRiverType == 0 )
@@ -56,13 +60,17 @@ public class RiverScript : MonoBehaviour
             {
                 leftToRight = false;
 
-                LeftRiverBorder = this.gameObject.GetComponentInParent<FloorData>().LeftRiverBorder;
-                Instantiate(LeftRiverBorder, new Vector3(-8, -.52f, transform.position.z), Quaternion.identity);
+                LeftRiverBorder =floorScript.LeftRiverBorder;
+                instantiatedBorder= Instantiate(LeftRiverBorder, new Vector3(-8, -.55f, transform.position.z), Quaternion.identity);
+                instantiatedBorder.transform.SetParent(floorScript.WaterAnimParent.transform);
+
             }
             else
             {
-                RightRiverBorder = this.gameObject.GetComponentInParent<FloorData>().RightRiverBorder;
-                Instantiate(RightRiverBorder, new Vector3(6, -.52f, transform.position.z), Quaternion.identity);
+                RightRiverBorder = floorScript.RightRiverBorder;
+                instantiatedBorder= Instantiate(RightRiverBorder, new Vector3(6, -.55f, transform.position.z), Quaternion.identity);
+                instantiatedBorder.transform.SetParent(floorScript.WaterAnimParent.transform);
+
 
 
                 leftToRight = true;
@@ -123,7 +131,7 @@ public class RiverScript : MonoBehaviour
         for (int i = 0; i < RandomPattelAmount; i++)
         {
            RandomPattelPlace  = Random.Range(-5, 8);
-            Pattel = this.gameObject.transform.parent.GetComponent<FloorData>().pattelObject;
+            Pattel = floorScript.pattelObject;
 
             
         instantiatedPattel = Instantiate(Pattel, new Vector3(RandomPattelPlace-.3f,transform.position.y+0.6f ,transform.position.z+0.4f), Quaternion.identity);
@@ -153,7 +161,7 @@ public class RiverScript : MonoBehaviour
         raftParent.gameObject.transform.position += new Vector3(randomPos, -.8f, this.gameObject.transform.position.z + zAdjust);
         raftParent.transform.SetParent(this.gameObject.transform);
         raftParent.AddComponent<Raft>();
-        Raft = this.gameObject.transform.parent.GetComponent<FloorData>().raftObject;
+        Raft = floorScript.raftObject;
 
         instantiatedRaft = Instantiate(Raft, new Vector3(0, -.5f, this.gameObject.transform.localPosition.z), Quaternion.identity);
         instantiatedRaft.transform.SetParent(raftParent.transform);
@@ -178,13 +186,13 @@ public class RiverScript : MonoBehaviour
 
         if (leftToRight == false)
         {
-            randomPos = Random.Range(randomPos + 6, randomPos + 8);
+            randomPos = Random.Range(randomPos + 6, randomPos + 7);
 
         }
         else
         {
 
-            randomPos = Random.Range(randomPos - 6, randomPos - 8);
+            randomPos = Random.Range(randomPos - 6, randomPos - 7);
         }
      
 

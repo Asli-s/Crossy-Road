@@ -43,6 +43,13 @@ public class PlayerScript : MonoBehaviour
 
     private void Start()
     {
+        // TODO 
+
+        //DIE BORDERSS
+        //BIRD
+        //SOUND
+        //NEXT LEVEL GENERATION
+        //ANIMATIONS
 
     }
 
@@ -116,7 +123,7 @@ public class PlayerScript : MonoBehaviour
                 {
                    
 
-                        print("valid");
+                     
                         onRaft = false;
                         if (nextIsPattel == true)
                         {
@@ -133,18 +140,7 @@ public class PlayerScript : MonoBehaviour
                         
 
                     
-                 /*   else if(onRaft == true)
-                    {
-                        print(" not valid but onraft");
-
-                        if (setPos == false)
-                        {
-                            setPos = true;
-                            transform.position = (raftPos);
-                        }
-
-                        transform.position += new Vector3(moveFactor, 0, 0) * Time.deltaTime;
-                    }*/
+    
                 }
                
                 else if(nextIsRaft == true || validPosition ==false && onRaft ==true )

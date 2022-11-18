@@ -9,11 +9,11 @@ public class PlayerFollow : MonoBehaviour
 
     void Update()
     {
-        if (Player.transform.position.z > -2 && Player.transform.position.x > -4 && Player.transform.position.x < 6)
+       /* if (Player.transform.position.z > -2 && Player.transform.position.x > -4 && Player.transform.position.x < 6)
         {
-            newPos = Vector3.Lerp(gameObject.transform.position, Player.transform.position, Time.deltaTime * 1.5f);
+         */   newPos = Vector3.Lerp(gameObject.transform.position, Player.transform.position, Time.deltaTime * 1.5f);
             gameObject.transform.position = new Vector3(newPos.x, 5, newPos.z);
-        }
+       // }
 
     }
 }

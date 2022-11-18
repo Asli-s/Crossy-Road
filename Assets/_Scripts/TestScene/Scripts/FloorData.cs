@@ -16,9 +16,11 @@ public class FloorData : MonoBehaviour
     public GameObject[] carObjects;
     public GameObject[] plantObjects;
     public GameObject trafficLightObject;
+    public GameObject trainObject;
     public GameObject pattelObject;
     public GameObject LeftRiverBorder;
     public GameObject RightRiverBorder;
+    public GameObject WaterAnimParent;
 
     GameObject currentFloor;
 
@@ -165,7 +167,7 @@ public class FloorData : MonoBehaviour
         int plantAmount = 50;
         for (int i = -plantAmount / 2; i < plantAmount; i++)
         {
-            GameObject plant = Instantiate(plantObjects[0], new Vector3(i, this.gameObject.transform.position.y + 1, minZ - 1 + adjustZPosition), Quaternion.identity);
+            GameObject plant = Instantiate(plantObjects[0], new Vector3(i,-.5f, minZ - 1 + adjustZPosition), Quaternion.identity);
             plant.name = plantObjects[0].name;
             plant.transform.SetParent(plantBarrierParent.transform);
 

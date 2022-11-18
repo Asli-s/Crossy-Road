@@ -13,42 +13,34 @@ public class GrassScript : MonoBehaviour
 
     int rightMax = 25;
     int rightMin = 8;
+
+    FloorData floorScript;
     void Start()
     {
-        
+        floorScript = this.gameObject.GetComponentInParent<FloorData>();
+
         plantAmount = Random.Range(1, 5);
         for (int i = 0; i < plantAmount; i++)
         {
             randomPlant = Random.Range(0, 2);
             randomPlace = Random.Range(-5, 7);
 
-            //no Plant where Player stands
 
-          /*  if ((int)this.gameObject.transform.position.z == 1 || (int)this.gameObject.transform.position.z == 0)
-            {*/
-                if (randomPlace != 0)
-                {
-                    plant = Instantiate(this.gameObject.transform.parent.GetComponent<FloorData>().plantObjects[randomPlant], new Vector3(randomPlace, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z - 0.4f), Quaternion.identity);
-                    plant.name = this.gameObject.transform.parent.GetComponent<FloorData>().plantObjects[randomPlant].name;
-                    plant.transform.SetParent(this.gameObject.transform.parent.GetComponent<FloorData>().plantBarrierParent.transform);
-
-                }
-           // }
-            //else
-          /*  else
+            if (randomPlace != 0)
             {
-                plant = Instantiate(this.gameObject.transform.parent.GetComponent<FloorData>().plantObjects[randomPlant], new Vector3(randomPlace, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z - 0.4f), Quaternion.identity);
-                plant.name = this.gameObject.transform.parent.GetComponent<FloorData>().plantObjects[randomPlant].name;
-                plant.transform.SetParent(this.gameObject.transform.parent.GetComponent<FloorData>().plantBarrierParent.transform);
+                plant = Instantiate(floorScript.plantObjects[randomPlant], new Vector3(randomPlace, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z - 0.4f), Quaternion.identity);
+                plant.name = floorScript.plantObjects[randomPlant].name;
+                plant.transform.SetParent(floorScript.plantBarrierParent.transform);
 
-            }*/
+            }
+
         }
         for (int i = leftMin; i < leftMax; i++)
         {
             randomPlant = Random.Range(0, 2);
-            plant = Instantiate(this.gameObject.transform.parent.GetComponent<FloorData>().plantObjects[randomPlant], new Vector3(i, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z - 0.4f), Quaternion.identity);
-            plant.name = this.gameObject.transform.parent.GetComponent<FloorData>().plantObjects[randomPlant].name;
-            plant.transform.SetParent(this.gameObject.transform.parent.GetComponent<FloorData>().plantBarrierParent.transform);
+            plant = Instantiate(floorScript.plantObjects[randomPlant], new Vector3(i, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z - 0.4f), Quaternion.identity);
+            plant.name = floorScript.plantObjects[randomPlant].name;
+            plant.transform.SetParent(floorScript.plantBarrierParent.transform);
 
 
         }
@@ -56,8 +48,8 @@ public class GrassScript : MonoBehaviour
         {
             randomPlant = Random.Range(0, 2);
             plant = Instantiate(this.gameObject.transform.parent.GetComponent<FloorData>().plantObjects[randomPlant], new Vector3(i, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z - 0.4f), Quaternion.identity);
-            plant.name = this.gameObject.transform.parent.GetComponent<FloorData>().plantObjects[randomPlant].name;
-            plant.transform.SetParent(this.gameObject.transform.parent.GetComponent<FloorData>().plantBarrierParent.transform);
+            plant.name = floorScript.plantObjects[randomPlant].name;
+            plant.transform.SetParent(floorScript.plantBarrierParent.transform);
 
 
         }
