@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -19,7 +17,6 @@ public class PlayerScript : MonoBehaviour
     public GameObject barrierObjects;
 
 
-    Vector3Int nextPosition;
     bool validPosition;
 
     bool clickOnce = false;
@@ -33,24 +30,39 @@ public class PlayerScript : MonoBehaviour
     bool nextIsPattel = false;
     Vector3 pattelPos;
     Vector3 raftPos;
-    int moveFactor = 0;
+    int moveSpeed = 0;
     public FloorData floorData;
     bool setPos = false;
 
     bool onRaft;
+    bool moveUp = false;
+    bool onWater = false;
+    bool dieAnim = false;
+    int factor = 1;
+    int raftPlayerPos;
 
+    public GameObject RiverDeathPrefab;
 
 
     private void Start()
     {
         // TODO 
 
-        //DIE BORDERSS
+        //DIE zoom
+
+
         //BIRD
         //SOUND
-        //NEXT LEVEL GENERATION
-        //ANIMATIONS
+     
+        //make 3 raft
 
+        //ANIMATIONS  -pattel, raft
+
+
+        //boundaries -8, 5
+        //-riveranim boundaries + 
+        
+        //-plantobjects boundaries
     }
 
 
@@ -61,13 +73,19 @@ public class PlayerScript : MonoBehaviour
 
 
          }*/
-        if (died == false)
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
+            string currentSene = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(currentSene);
+        }
+      
 
             if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
             {
 
-                if (percentage == 1)
+                if (percentage == 1 && died == false)
                 {
                     lerpTime = 1;
                     currentLerpTime = 0;
@@ -83,36 +101,41 @@ public class PlayerScript : MonoBehaviour
             startPos = gameObject.transform.position;
 
 
-            if (Input.GetKeyDown(KeyCode.UpArrow) && clickOnce == false)
+            if (Input.GetKeyDown(KeyCode.UpArrow) && clickOnce == false &&died ==false)
             {
                 endPos = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), Mathf.Round(transform.position.z) + steps);
                 validPosition = checkValidJump(endPos);
                 clickOnce = true;
+                moveUp = true;
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow) && clickOnce == false)
+            if (Input.GetKeyDown(KeyCode.DownArrow) && clickOnce == false && died == false)
             {
                 endPos = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), Mathf.Round(transform.position.z) - steps);
 
                 validPosition = checkValidJump(endPos);
                 clickOnce = true;
+                moveUp = false;
             }
-            if (Input.GetKeyDown(KeyCode.RightArrow) && clickOnce == false)
+            if (Input.GetKeyDown(KeyCode.RightArrow) && clickOnce == false && died == false)
 
             {
                 endPos = new Vector3(Mathf.Round(transform.position.x) + steps, Mathf.Round(transform.position.y), Mathf.Round(transform.position.z));
 
                 validPosition = checkValidJump(endPos);
                 clickOnce = true;
+                moveUp = false;
 
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow) && clickOnce == false)
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && clickOnce == false && died == false)
             {
                 endPos = new Vector3(Mathf.Round(transform.position.x) - steps, Mathf.Round(transform.position.y), Mathf.Round(transform.position.z));
 
 
                 validPosition = checkValidJump(endPos);
                 clickOnce = true;
+                moveUp = false;
             }
+
 
             if (firstInput == true)
             {
@@ -123,7 +146,12 @@ public class PlayerScript : MonoBehaviour
                 {
                    
 
-                     
+                        if (moveUp == true)
+                        {
+                            floorData.nextFloor();
+                            moveUp = false;
+                        }
+                  
                         onRaft = false;
                         if (nextIsPattel == true)
                         {
@@ -134,9 +162,17 @@ public class PlayerScript : MonoBehaviour
                                 transform.position = (pattelPos);
                             }
 
+
                         }else
+                    {
 
                         transform.position = Vector3.Lerp(startPos, endPos, percentage);
+                        if (onWater == true && dieAnim == false)
+                        {
+                            dieAnim = true;
+                            Die();
+                        }
+                    }
                         
 
                     
@@ -151,9 +187,20 @@ public class PlayerScript : MonoBehaviour
                         setPos = true;
                         transform.position = (raftPos);
                     }
+                    if (moveUp == true)
+                    {
+                        floorData.nextFloor();
+                        moveUp = false;
+                    }
+                    if (transform.position.x <= 5+raftPlayerPos &&transform.position.x >=-8 -raftPlayerPos)
+                    transform.position += new Vector3(factor*moveSpeed, 0, 0) * Time.deltaTime;
+                   else if (transform.position.x > 5+raftPlayerPos|| transform.position.x< -8 -raftPlayerPos)
+                    {
+                        died = true;
+                   transform.position += new Vector3(factor * moveSpeed, 0, 0) * Time.deltaTime*10;
 
-                    transform.position += new Vector3(moveFactor, 0, 0) * Time.deltaTime;
                 }
+            }
 
 
                 if (percentage > 0.8f)
@@ -165,6 +212,7 @@ public class PlayerScript : MonoBehaviour
                 if (Mathf.Round(percentage) == 1)
                 {
                     justJump = false;
+                    moveUp = false;
                 }
 
 
@@ -172,16 +220,20 @@ public class PlayerScript : MonoBehaviour
                 {
                     clickOnce = false;
                 }
-            }
+            
         }
     }
 
-
-
+    void Die
+        ()
+    {
+        Instantiate(RiverDeathPrefab, new Vector3(this.gameObject.transform.position.x, 1, this.gameObject.transform.position.z + 1), Quaternion.identity);
+        this.gameObject.transform.localScale = new Vector3(0, 0, 0);
+    }
 
     bool checkValidJump(Vector3 nextPosition)
     {
-
+        onWater = false;
         int currentZ = (int)nextPosition.z;
         string nextName = floorData?.floorRows[currentZ]?.name;
         if (nextName == "River")
@@ -206,15 +258,24 @@ public class PlayerScript : MonoBehaviour
                             print(Mathf.Round(raft.transform.GetChild(i).transform.position.x));
                             if (nextPosition.x >= Mathf.Round(raft.transform.GetChild(i).transform.position.x) && nextPosition.x <= (Mathf.Round(raft.transform.GetChild(i).transform.position.x + .9f)))
                             {
+                                raftPlayerPos = i;
+                                print(raftPlayerPos);
+
                                 print("yes");
-                                moveFactor = riverScript.moveSpeed;
+                                factor = 1;
+                                    
+                                 moveSpeed=   riverScript.moveSpeed;
                                 raftPos = new Vector3(raft.transform.GetChild(i).transform.position.x, this.gameObject.transform.position.y, nextPosition.z);
                                 nextIsRaft = true;
                                 onRaft = true;
+                                onWater = false;
                             }
                             else
                             {
                                 // died = true;
+                                print("no");
+                                onWater = true;
+                             
                             }
 
                         }
@@ -224,17 +285,24 @@ public class PlayerScript : MonoBehaviour
                         {
                             if (nextPosition.x == Mathf.Round(raft.transform.GetChild(i).transform.position.x))
                             {
+                                raftPlayerPos = i;
+                                print(raftPlayerPos);
                                 print("yes1");
-                                moveFactor = -  riverScript.moveSpeed;
+                                factor = (-1);  
+                               moveSpeed=     riverScript.moveSpeed;
                                 nextIsRaft = true;
                                 onRaft = true;
+                                onWater = false;
 
                                 raftPos = new Vector3(raft.transform.GetChild(i).transform.position.x, this.gameObject.transform.position.y, nextPosition.z);
                             }
                             else
                             {
                                 // died = true;
-                            }
+                                print("no1");
+                                onWater = true;
+
+                                }
 
 
                         }
@@ -247,6 +315,7 @@ public class PlayerScript : MonoBehaviour
                     GameObject pattel = floorData.floorRows[currentZ].gameObject.transform.GetChild(j).gameObject;
                      if (nextPosition.x >= Mathf.Round(pattel.transform.position.x) && nextPosition.x <= (Mathf.Round(pattel.transform.position.x ) +0.3f))
                     {
+                        onWater = false;
                         print("pattel" + pattel.transform.position);
                     
                         nextIsPattel = true;
@@ -255,14 +324,16 @@ public class PlayerScript : MonoBehaviour
                     else
                     {
                         //die
-                    }
+                        onWater = true;
+                        print("no1 pattel");
+
+                        }
 
                 }
             }
 
         }
-        print(nextPosition.x);
-        print(nextPosition.z);
+       
         if (barrierObjects.transform.childCount != 0)
         {
             for (int i = 0; i < barrierObjects.transform.childCount; i++)

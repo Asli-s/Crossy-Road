@@ -8,22 +8,22 @@ public class GrassScript : MonoBehaviour
     int plantAmount;
     int randomPlant;
     int randomPlace;
-    int leftMin = -15;
-    int leftMax = -6;
+    int leftMin = -17;
+    int leftMax = -7;
 
     int rightMax = 25;
-    int rightMin = 8;
+    int rightMin = 5;
 
     FloorData floorScript;
     void Start()
     {
         floorScript = this.gameObject.GetComponentInParent<FloorData>();
 
-        plantAmount = Random.Range(1, 5);
+        plantAmount = Random.Range(1, 4);
         for (int i = 0; i < plantAmount; i++)
         {
-            randomPlant = Random.Range(0, 2);
-            randomPlace = Random.Range(-5, 7);
+            randomPlant = Random.Range(0, 3);
+            randomPlace = Random.Range(-6, 7);
 
 
             if (randomPlace != 0)

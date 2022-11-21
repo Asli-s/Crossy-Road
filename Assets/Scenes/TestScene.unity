@@ -1105,7 +1105,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.15998574, g: 0.7924528, b: 0.7123265, a: 0}
+  m_BackGroundColor: {r: 0.5226415, g: 1, b: 0.7791537, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1292,7 +1292,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &654768755
 GameObject:
@@ -1658,7 +1658,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &955955482
 GameObject:
@@ -2196,7 +2196,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1332970219
 GameObject:
@@ -2230,7 +2230,7 @@ Transform:
   m_Children:
   - {fileID: 373480553}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1332970222
 Rigidbody:
@@ -2271,6 +2271,7 @@ MonoBehaviour:
   left: 0
   woodSpeed: 3
   floorData: {fileID: 1909275850}
+  RiverDeathPrefab: {fileID: 4135501154226566062, guid: bd49c75282067ce439df069419d6444e, type: 3}
 --- !u!1 &1455068361
 GameObject:
   m_ObjectHideFlags: 0
@@ -2304,7 +2305,7 @@ RectTransform:
   m_Children:
   - {fileID: 955955483}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3158,9 +3159,11 @@ MonoBehaviour:
   carObjects:
   - {fileID: 8249813199354938491, guid: 58ae3c5cf58457e488b374839627d163, type: 3}
   - {fileID: 8249813199354938491, guid: 6c4d0e11f97f21b4fad94c5471f0c950, type: 3}
+  - {fileID: 8249813199354938491, guid: c7a9c1b2ddf67c048aef92ff1eae3e03, type: 3}
   plantObjects:
   - {fileID: 3610968042944763418, guid: c4f88dbf512ed5b45b9e87e12cef2436, type: 3}
   - {fileID: 3610968042944763418, guid: ec70b66c42e46824cb376b0a35c58832, type: 3}
+  - {fileID: 3610968042944763418, guid: c6d189a31cf7b994ba323cd577bd3c11, type: 3}
   trafficLightObject: {fileID: 3295282689218901801, guid: 89d45107aeffe594ebd1e1170c02afa0, type: 3}
   trainObject: {fileID: 8249813199354938491, guid: bd3cabf2d92348e4d9f163e9c261072d, type: 3}
   pattelObject: {fileID: 647368344986180740, guid: 8e6ea77530947734f9fdc9091581d839, type: 3}
@@ -3182,7 +3185,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2012148314
 GameObject:

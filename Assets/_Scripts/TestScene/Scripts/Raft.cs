@@ -8,13 +8,18 @@ public class Raft : MonoBehaviour
     bool leftToRight;
     int moveSpeed;
     Vector3 moveVector;
+    bool calledOnce = false;
+    int randomPosition;
+    RiverScript riverScript;
+    bool adjustSpeed = false;
+
 
     void Start()
     {
-        RiverScript riverScript = GetComponentInParent<RiverScript>();
+        riverScript = GetComponentInParent<RiverScript>();
         leftToRight = riverScript.leftToRight;
         moveSpeed = riverScript.moveSpeed;
-        moveVector   = new Vector3(moveSpeed, 0, 0);
+        moveVector = new Vector3(moveSpeed, 0, 0);
         if (leftToRight == false)
         {
             transform.rotation *= Quaternion.Euler(0, 180, 0);
@@ -23,22 +28,55 @@ public class Raft : MonoBehaviour
 
     void Update()
     {
-        if(leftToRight == true)
+        if (leftToRight == true)
         {
-            this.gameObject.transform.position += moveVector * Time.deltaTime;
-            if(this.gameObject.transform.position.x > 17)
+            this.gameObject.transform.position += new Vector3(moveSpeed, 0, 0) * Time.deltaTime;
+            if (this.gameObject.transform.position.x > -2 && calledOnce == false)
+            {
+                calledOnce = true;
+                randomPosition = Random.Range(-11, -18);
+                riverScript.MakeNewRaft(randomPosition);
+
+
+            }
+            if (this.gameObject.transform.GetChild(0).gameObject.transform.position.x > 5 && adjustSpeed == false)
+            {
+                moveSpeed *= 10;
+                adjustSpeed = true;
+            }
+            if (this.gameObject.transform.position.x > 17)
             {
                 Destroy(this.gameObject);
             }
         }
         else
         {
-            if (this.gameObject.transform.position.x <-17)
+            if (this.gameObject.transform.position.x < 5 && calledOnce == false)
+            {
+                calledOnce = true;
+                randomPosition = Random.Range(9, 16);
+
+                riverScript.MakeNewRaft(randomPosition);
+
+
+
+            }
+
+
+            if (this.gameObject.transform.GetChild(0).gameObject.transform.position.x < -8 && adjustSpeed == false)
+            {
+                moveSpeed *= 10;
+                adjustSpeed = true;
+            }
+
+            if (this.gameObject.transform.position.x < -17)
             {
                 Destroy(this.gameObject);
             }
-            this.gameObject.transform.position -= moveVector * Time.deltaTime;
+            this.gameObject.transform.position -= new Vector3(moveSpeed, 0, 0) * Time.deltaTime;
         }
-        
+
     }
+
 }
+

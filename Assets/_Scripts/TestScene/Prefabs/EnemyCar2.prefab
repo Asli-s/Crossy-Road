@@ -658,7 +658,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2b724ffb284953148a37ef8bc1b5eb2e, type: 2}
+  - {fileID: 2100000, guid: 11596c2a0a90da64386d9eab6868a14e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1399,7 +1399,7 @@ GameObject:
   - component: {fileID: 2929304550306145096}
   - component: {fileID: -2864923220913358496}
   m_Layer: 0
-  m_Name: EnemyCar
+  m_Name: EnemyCar2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

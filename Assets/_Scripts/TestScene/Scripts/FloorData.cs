@@ -22,6 +22,7 @@ public class FloorData : MonoBehaviour
     public GameObject RightRiverBorder;
     public GameObject WaterAnimParent;
 
+
     GameObject currentFloor;
 
 
@@ -154,7 +155,87 @@ public class FloorData : MonoBehaviour
     public void nextFloor()
     {
 
+        int randomProbability = Random.Range(0, 100);
+        if (randomProbability <= 4)
+        {
+            floorName = "Train";
+        }
+        else if (randomProbability > 4 && randomProbability <= 34)
+        {
+            floorName = "Street";
+        }
+        else if (randomProbability > 34 && randomProbability <= 64)
+        {
+            floorName = "River";
+        }
+        else if (randomProbability > 64 && randomProbability <= 99)
+        {
+            floorName = "Grass";
+        }
+
+
+        currentFloor = Instantiate(floorType[floorName], new Vector3(15 - floorWidth / 2, -1, rowNum + adjustZPosition), Quaternion.identity);
+        currentFloor.name = floorName;
+        currentFloor.transform.SetParent(this.gameObject.transform);
+
+
+        if (currentFloor.name == "River")
+        {
+            currentFloor.AddComponent<RiverScript>();
+            floorRows.Add(rowNum, currentFloor);
+
+        }
+        else if (currentFloor.name == "Grass")
+        {
+            currentFloor.AddComponent<GrassScript>();
+            floorRows.Add(rowNum, currentFloor);
+
+        }
+        else if (currentFloor.name == "Street")
+        {
+            //  floorRows.Add(rowNum, currentFloor);
+            print(rowNum);
+            currentFloor.AddComponent<StreetScript>();
+            /*       rowNum ++;
+                   print(rowNum);
+   */
+            floorRows.Add(rowNum, currentFloor);
+
+        }
+
+        else if (currentFloor.name == "Train")
+        {
+            currentFloor.AddComponent<TrainScript>();
+            floorRows.Add(rowNum, currentFloor);
+
+        }
+
+
+        rowNum++;
+        DeleteFloor();
+
     }
+
+    void DeleteFloor()
+    {
+        //childobj first get z then delete() 
+        // plantBarrierObj delete objects where z of childobject first
+        print(this.gameObject.transform.GetChild(0).position.z);
+        int deleteRowNUm =(int) this.gameObject.transform.GetChild(0).position.z;
+        Destroy(this.gameObject.transform.GetChild(0).gameObject);
+       int plantObjectNum= plantBarrierParent.transform.childCount;
+        for (int i = 0; i < plantObjectNum; i++)
+        {
+            GameObject deleteObject = plantBarrierParent.transform.GetChild(i).gameObject;
+            if((int)deleteObject.transform.position.z == deleteRowNUm)
+            {
+
+                Destroy(deleteObject);
+            }
+        }
+    }
+
+
 
     void FirstFloor()
     {

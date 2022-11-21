@@ -10,7 +10,7 @@ public class StreetScript : MonoBehaviour
     Vector3 moveVector = new Vector3(-1, 0, 0);
     int randomPosition;
     int randomCar;
-    float zAdjust = 0.3f;
+    float zAdjust = 0.5f;
     bool madeCar = false;
     public bool leftToRight = false;
 
@@ -25,7 +25,7 @@ public class StreetScript : MonoBehaviour
 
 
 
-        moveSpeed = Random.Range(1, 4);
+        moveSpeed = Random.Range(1, 5);
 
 
       
@@ -44,73 +44,34 @@ public class StreetScript : MonoBehaviour
 
             leftToRight = true;
         }
-        randomPosition = Random.Range(-5, 17);
-        randomCar = Random.Range(0, 2);
+ 
+         if (leftToRight == false)
+       {
+           randomPosition = Random.Range(10, 14);
+
+       }
+       else
+       {
+
+           randomPosition = Random.Range( - 6,  -10);
+       }
+        randomCar = Random.Range(0, 3);
         floorDataScrript = this.gameObject.transform.parent.GetComponent<FloorData>();
        
-        MakeCar();
+        MakeCar(randomPosition);
 
 
-
-
-      
      
     }
 
-    void Update()
+   
+
+    public void MakeCar(int randomPosition)
     {
-        if (this.gameObject.transform.childCount == 1)
-        {
-
-            if (madeCar == false)
-            {
-
-                madeCar = true;
-                MakeCar();
-            }
-
-        }
-        if (this.gameObject.transform.childCount == 2)
-        {
-
-
-            if (madeCar == false)
-            {
-
-                madeCar = true;
-                MakeCar();
-            }
-
-        }
-        if (this.gameObject.transform.childCount == 3)
-        {
-
-
-            if (madeCar == false)
-            {
-
-                madeCar = true;
-                MakeCar();
-            }
-
-        }
-    }
-
-    void MakeCar()
-    {
-        if (leftToRight == false)
-        {
-            randomPosition = Random.Range(randomPosition + 6, randomPosition + 8);
-
-        }
-        else
-        {
-
-            randomPosition = Random.Range(randomPosition - 6, randomPosition - 8);
-        }
-
+      
         Car = floorDataScrript.carObjects[randomCar];
         instantiatedCar = Instantiate(Car, new Vector3(randomPosition, this.gameObject.transform.position.y + 1.5f, this.gameObject.transform.position.z - zAdjust), Quaternion.identity);
+        print(instantiatedCar.transform.localPosition);
         instantiatedCar.transform.SetParent(this.gameObject.transform);
         instantiatedCar.AddComponent<Car>();
         madeCar = false;

@@ -5,12 +5,12 @@ using UnityEngine;
 public class RiverScript : MonoBehaviour
 {
     GameObject Raft;
-    GameObject instantiatedRaft; 
+    GameObject instantiatedRaft;
     GameObject Pattel;
     GameObject instantiatedPattel;
 
-    GameObject LeftRiverBorder;
-    GameObject RightRiverBorder;
+    GameObject RiverBorder;
+ 
     GameObject instantiatedBorder;
 
 
@@ -21,55 +21,61 @@ public class RiverScript : MonoBehaviour
     public bool leftToRight = false;
 
     int randomDirection;
-    bool alreadyMadeRaft1 = false;
-    bool alreadyMadeRaft2 = false;
-    bool alreadyMadeRaft3 = false;
-
+  
     float zAdjust = -0.1f;
     float xAdjust = 0.2f;
 
-   public bool pattel = false;
+    int raftSize = 3;
+
+
+
+    public bool pattel = false;
     int randomRiverType;
 
-   
-   public int moveSpeed =1;
+
+    public int moveSpeed = 1;
 
     void Start()
 
     {
-         floorScript = this.gameObject.GetComponentInParent<FloorData>();
+        floorScript = this.gameObject.GetComponentInParent<FloorData>();
+
+        RiverBorder = floorScript.RightRiverBorder;
+        instantiatedBorder = Instantiate(RiverBorder, new Vector3(5, -.65f, transform.position.z), Quaternion.identity);
+        instantiatedBorder.transform.SetParent(transform);
+        instantiatedBorder.transform.localScale = new Vector3(instantiatedBorder.transform.localScale.x, instantiatedBorder.transform.localScale.y, 0.01f);
+
+
+        RiverBorder = floorScript.LeftRiverBorder;
+        instantiatedBorder = Instantiate(RiverBorder, new Vector3(-8, -.65f, transform.position.z), Quaternion.identity);
+        instantiatedBorder.transform.SetParent(transform);
+        instantiatedBorder.transform.localScale = new Vector3(instantiatedBorder.transform.localScale.x, instantiatedBorder.transform.localScale.y, 0.01f);
 
 
 
 
         randomRiverType = Random.Range(0, 3);
 
-        if (randomRiverType == 0 )
+        if (randomRiverType == 0)
         {
             pattel = true;
             MakePattel();
         }
         else if (randomRiverType == 1 || randomRiverType == 2)
         {
-            moveSpeed = Random.Range(1, 4); 
+            moveSpeed = Random.Range(1, 5);
 
-
+            raftSize = Random.Range(3, 5);
             pattel = false;
             randomDirection = Random.Range(0, 2);
             if (randomDirection == 0)
             {
                 leftToRight = false;
 
-                LeftRiverBorder =floorScript.LeftRiverBorder;
-                instantiatedBorder= Instantiate(LeftRiverBorder, new Vector3(-8, -.55f, transform.position.z), Quaternion.identity);
-                instantiatedBorder.transform.SetParent(floorScript.WaterAnimParent.transform);
 
             }
             else
             {
-                RightRiverBorder = floorScript.RightRiverBorder;
-                instantiatedBorder= Instantiate(RightRiverBorder, new Vector3(6, -.55f, transform.position.z), Quaternion.identity);
-                instantiatedBorder.transform.SetParent(floorScript.WaterAnimParent.transform);
 
 
 
@@ -79,72 +85,32 @@ public class RiverScript : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (pattel == false)
-        {
-            if (this.gameObject.transform.childCount == 1)
-            {
 
-                if (alreadyMadeRaft1 == false)
-                {
-
-                    alreadyMadeRaft1 = true;
-                    MakeNewRaft(this.gameObject.transform.GetChild(0).gameObject.transform.position);
-                }
-
-            }
-            if (this.gameObject.transform.childCount == 2)
-            {
-
-
-                if (alreadyMadeRaft2 == false)
-                {
-
-                    alreadyMadeRaft2 = true;
-                    MakeNewRaft(this.gameObject.transform.GetChild(1).gameObject.transform.position);
-                }
-
-            }
-            if (this.gameObject.transform.childCount == 3)
-            {
-
-
-                if (alreadyMadeRaft3 == false)
-                {
-
-                    alreadyMadeRaft3 = true;
-                    MakeNewRaft(this.gameObject.transform.GetChild(2).gameObject.transform.position);
-                }
-
-            }
-        }
-    }
 
     void MakePattel()
     {
-        int RandomPattelAmount = Random.Range(3,7);
+        int RandomPattelAmount = Random.Range(3, 7);
         int RandomPattelPlace;
 
         List<int> PattelsXPos = new List<int>();
 
         for (int i = 0; i < RandomPattelAmount; i++)
         {
-           RandomPattelPlace  = Random.Range(-5, 8);
+            RandomPattelPlace = Random.Range(-5, 8);
             Pattel = floorScript.pattelObject;
 
-            
-        instantiatedPattel = Instantiate(Pattel, new Vector3(RandomPattelPlace-.3f,transform.position.y+0.6f ,transform.position.z+0.4f), Quaternion.identity);
+
+            instantiatedPattel = Instantiate(Pattel, new Vector3(RandomPattelPlace - .3f, transform.position.y + 0.6f, transform.position.z +0.2f), Quaternion.identity);
             instantiatedPattel.transform.SetParent(this.gameObject.transform);
             PattelsXPos.Add(RandomPattelPlace);
             if (!PattelsXPos.Contains(0))
             {
-                instantiatedPattel = Instantiate(Pattel, new Vector3(0 - .3f, transform.position.y + 0.6f, transform.position.z + 0.4f), Quaternion.identity);
+                instantiatedPattel = Instantiate(Pattel, new Vector3(0 - .3f, transform.position.y + 0.6f, transform.position.z + 0.2f), Quaternion.identity);
                 instantiatedPattel.transform.SetParent(this.gameObject.transform);
                 PattelsXPos.Add(RandomPattelPlace);
             }
-            
-          
+
+
         }
 
     }
@@ -152,7 +118,7 @@ public class RiverScript : MonoBehaviour
 
     void MakeFirstRaft()
     {
-            
+
 
         randomPos = Random.Range(-5, 10);
         raftParent = new GameObject();
@@ -163,14 +129,19 @@ public class RiverScript : MonoBehaviour
         raftParent.AddComponent<Raft>();
         Raft = floorScript.raftObject;
 
-        instantiatedRaft = Instantiate(Raft, new Vector3(0, -.5f, this.gameObject.transform.localPosition.z), Quaternion.identity);
+        for (int i = 0; i < raftSize; i++)
+        {
+
+        instantiatedRaft = Instantiate(Raft, new Vector3(i, -.5f, this.gameObject.transform.localPosition.z), Quaternion.identity);
         instantiatedRaft.transform.SetParent(raftParent.transform);
-        instantiatedRaft.transform.localPosition = new Vector3(0 + xAdjust, 0.3f, 0);
+        instantiatedRaft.transform.localPosition = new Vector3(i + xAdjust, 0.3f, 0);
+        }
 
 
-        instantiatedRaft = Instantiate(Raft, new Vector3(1, -.5f, this.gameObject.transform.localPosition.z), Quaternion.identity);
+
+      /*  instantiatedRaft = Instantiate(Raft, new Vector3(1, -.5f, this.gameObject.transform.localPosition.z), Quaternion.identity);
         instantiatedRaft.transform.SetParent(raftParent.transform);
-        instantiatedRaft.transform.localPosition = new Vector3(1 + xAdjust, 0.3f, 0);
+        instantiatedRaft.transform.localPosition = new Vector3(1 + xAdjust, 0.3f, 0);*/
 
 
         raftObjects.Add(raftParent);
@@ -181,20 +152,11 @@ public class RiverScript : MonoBehaviour
 
 
 
-    void MakeNewRaft(Vector3 pos)
+    public void MakeNewRaft(int randomPos)
     {
 
-        if (leftToRight == false)
-        {
-            randomPos = Random.Range(randomPos + 6, randomPos + 7);
 
-        }
-        else
-        {
 
-            randomPos = Random.Range(randomPos - 6, randomPos - 7);
-        }
-     
 
         raftParent = new GameObject();
         raftParent.name = "raftParent";
@@ -202,18 +164,26 @@ public class RiverScript : MonoBehaviour
 
         raftParent.gameObject.transform.position += new Vector3(randomPos, -.8f, this.gameObject.transform.position.z + zAdjust);
         raftParent.AddComponent<Raft>();
-        instantiatedRaft = Instantiate(Raft, new Vector3(0, -.5f, this.gameObject.transform.localPosition.z), Quaternion.identity);
-        instantiatedRaft.transform.SetParent(raftParent.transform);
-        instantiatedRaft.transform.localPosition = new Vector3(0 + xAdjust, 0.3f, 0);
 
 
-        instantiatedRaft = Instantiate(Raft, new Vector3(1, -.5f, this.gameObject.transform.localPosition.z), Quaternion.identity);
-        instantiatedRaft.transform.SetParent(raftParent.transform);
-        instantiatedRaft.transform.localPosition = new Vector3(1 + xAdjust, 0.3f, 0);
+        for (int i = 0; i < raftSize; i++)
+        {
+
+            instantiatedRaft = Instantiate(Raft, new Vector3(i, -.5f, this.gameObject.transform.localPosition.z), Quaternion.identity);
+            instantiatedRaft.transform.SetParent(raftParent.transform);
+            instantiatedRaft.transform.localPosition = new Vector3(i + xAdjust, 0.3f, 0);
+        }
+        /*
+                instantiatedRaft = Instantiate(Raft, new Vector3(0, -.5f, this.gameObject.transform.localPosition.z), Quaternion.identity);
+                instantiatedRaft.transform.SetParent(raftParent.transform);
+                instantiatedRaft.transform.localPosition = new Vector3(0 + xAdjust, 0.3f, 0);
+
+
+                instantiatedRaft = Instantiate(Raft, new Vector3(1, -.5f, this.gameObject.transform.localPosition.z), Quaternion.identity);
+                instantiatedRaft.transform.SetParent(raftParent.transform);
+                instantiatedRaft.transform.localPosition = new Vector3(1 + xAdjust, 0.3f, 0);*/
 
         raftObjects.Add(raftParent);
-        alreadyMadeRaft1 = false;
-        alreadyMadeRaft2 = false;
-        alreadyMadeRaft3 = false;
+      
     }
 }

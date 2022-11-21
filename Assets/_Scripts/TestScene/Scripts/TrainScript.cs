@@ -26,7 +26,7 @@ public class TrainScript : MonoBehaviour
         trafficLightObject = Instantiate( floorScript.trafficLightObject, Vector3.zero, Quaternion.identity);
         trafficLightObject.transform.SetParent(this.gameObject.transform);
         trafficLightObject.transform.localPosition = new Vector3(0.001f,0.3f, -.2f);
-        trafficLightObject.transform.localScale = new Vector3(0.5f,0.625f,0.4f);
+        trafficLightObject.transform.localScale = new Vector3(-0.5f,0.625f,0.4f);
 
         redLight = trafficLightObject.transform.GetChild(0).transform.GetChild(0).gameObject;
         greenLight = trafficLightObject.transform.GetChild(1).transform.GetChild(0).gameObject;
@@ -42,7 +42,7 @@ public class TrainScript : MonoBehaviour
     {
         if(trainReady == true && instantiatedTrain != null)
         {
-            instantiatedTrain.transform.position +=  new Vector3(-1, 0, 0) * 30 * Time.deltaTime;
+            instantiatedTrain.transform.position +=  new Vector3(-1, 0, 0) * 35 * Time.deltaTime;
             if(instantiatedTrain.transform.localPosition.x <= -1 && destroyed == false)
             {
                 destroyed = true;
@@ -97,7 +97,7 @@ public class TrainScript : MonoBehaviour
 
         greenLight.SetActive(false);
         redLight.SetActive(true);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         trainIsNext = true;
         print(" train next"+trainIsNext);
         MakeTrain();
@@ -107,7 +107,7 @@ public class TrainScript : MonoBehaviour
     void MakeTrain()
     {
        Train=  floorScript.trainObject;
-        instantiatedTrain = Instantiate(Train, new Vector3(20,0, this.transform.position.z), Quaternion.identity);
+        instantiatedTrain = Instantiate(Train, new Vector3(20,0, this.transform.position.z-.4f), Quaternion.identity);
         instantiatedTrain.transform.SetParent(transform);
         trainReady = true;
 

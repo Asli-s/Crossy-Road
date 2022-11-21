@@ -18,6 +18,7 @@ public class PlayerCollision : MonoBehaviour
         {
             print("enemy");
             playerScript.died = true;
+            this.gameObject.transform.parent.gameObject.transform.localScale = new Vector3(this.gameObject.transform.parent.gameObject.transform.localScale.x,0.01f, this.gameObject.transform.parent.gameObject.transform.localScale.z);
             playerScript.justJump = false;
         }
     }
