@@ -18,10 +18,10 @@ public class PlayerFollow : MonoBehaviour
     {
      
 
-        if (playerScript.died == false && Player.transform.position.x < 4 &&  Player.transform.position.x> -6 )
+        if (playerScript.died == false && Player.transform.position.x < 6 &&  Player.transform.position.x> -6 )
         {
             newPos = Vector3.Lerp(gameObject.transform.position, Player.transform.position, Time.deltaTime * 1.5f);
-            gameObject.transform.position = new Vector3(newPos.x, 5, newPos.z);
+            gameObject.transform.position = new Vector3(newPos.x, 3, newPos.z);
         
         }
     }

@@ -71,7 +71,6 @@ public class StreetScript : MonoBehaviour
       
         Car = floorDataScrript.carObjects[randomCar];
         instantiatedCar = Instantiate(Car, new Vector3(randomPosition, this.gameObject.transform.position.y + 1.5f, this.gameObject.transform.position.z - zAdjust), Quaternion.identity);
-        print(instantiatedCar.transform.localPosition);
         instantiatedCar.transform.SetParent(this.gameObject.transform);
         instantiatedCar.AddComponent<Car>();
         madeCar = false;

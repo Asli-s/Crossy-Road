@@ -21,7 +21,7 @@ public class FloorData : MonoBehaviour
     public GameObject LeftRiverBorder;
     public GameObject RightRiverBorder;
     public GameObject WaterAnimParent;
-
+    public GameObject CoinObject;
 
     GameObject currentFloor;
 
@@ -123,7 +123,6 @@ public class FloorData : MonoBehaviour
             else if (currentFloor.name == "Street")
             {
                 //  floorRows.Add(rowNum, currentFloor);
-                print(rowNum);
                 currentFloor.AddComponent<StreetScript>();
                 /*       rowNum ++;
                        print(rowNum);
@@ -194,7 +193,6 @@ public class FloorData : MonoBehaviour
         else if (currentFloor.name == "Street")
         {
             //  floorRows.Add(rowNum, currentFloor);
-            print(rowNum);
             currentFloor.AddComponent<StreetScript>();
             /*       rowNum ++;
                    print(rowNum);
@@ -218,9 +216,6 @@ public class FloorData : MonoBehaviour
 
     void DeleteFloor()
     {
-        //childobj first get z then delete() 
-        // plantBarrierObj delete objects where z of childobject first
-        print(this.gameObject.transform.GetChild(0).position.z);
         int deleteRowNUm =(int) this.gameObject.transform.GetChild(0).position.z;
         Destroy(this.gameObject.transform.GetChild(0).gameObject);
        int plantObjectNum= plantBarrierParent.transform.childCount;

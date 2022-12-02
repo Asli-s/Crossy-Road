@@ -40,18 +40,7 @@ public class RiverScript : MonoBehaviour
     {
         floorScript = this.gameObject.GetComponentInParent<FloorData>();
 
-        RiverBorder = floorScript.RightRiverBorder;
-        instantiatedBorder = Instantiate(RiverBorder, new Vector3(5, -.65f, transform.position.z), Quaternion.identity);
-        instantiatedBorder.transform.SetParent(transform);
-        instantiatedBorder.transform.localScale = new Vector3(instantiatedBorder.transform.localScale.x, instantiatedBorder.transform.localScale.y, 0.01f);
-
-
-        RiverBorder = floorScript.LeftRiverBorder;
-        instantiatedBorder = Instantiate(RiverBorder, new Vector3(-8, -.65f, transform.position.z), Quaternion.identity);
-        instantiatedBorder.transform.SetParent(transform);
-        instantiatedBorder.transform.localScale = new Vector3(instantiatedBorder.transform.localScale.x, instantiatedBorder.transform.localScale.y, 0.01f);
-
-
+     
 
 
         randomRiverType = Random.Range(0, 3);
@@ -63,6 +52,9 @@ public class RiverScript : MonoBehaviour
         }
         else if (randomRiverType == 1 || randomRiverType == 2)
         {
+            MakeRiverBorder();
+
+
             moveSpeed = Random.Range(1, 5);
 
             raftSize = Random.Range(3, 5);
@@ -85,7 +77,20 @@ public class RiverScript : MonoBehaviour
         }
     }
 
+    void MakeRiverBorder()
+    {
+        RiverBorder = floorScript.RightRiverBorder;
+        instantiatedBorder = Instantiate(RiverBorder, new Vector3(5, -.65f, transform.position.z), Quaternion.identity);
+        instantiatedBorder.transform.SetParent(transform);
+        instantiatedBorder.transform.localScale = new Vector3(instantiatedBorder.transform.localScale.x, instantiatedBorder.transform.localScale.y, 0.01f);
 
+
+        RiverBorder = floorScript.LeftRiverBorder;
+        instantiatedBorder = Instantiate(RiverBorder, new Vector3(-8, -.65f, transform.position.z), Quaternion.identity);
+        instantiatedBorder.transform.SetParent(transform);
+        instantiatedBorder.transform.localScale = new Vector3(instantiatedBorder.transform.localScale.x, instantiatedBorder.transform.localScale.y, 0.01f);
+
+    }
 
     void MakePattel()
     {

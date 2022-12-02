@@ -68,7 +68,7 @@ public class TrainScript : MonoBehaviour
     {
         trainSpawn = TrainSpawn();
         trafficLight = TrafficLight();
-        int randomDelay = Random.Range(8, 15);
+        int randomDelay = Random.Range(6, 12);
         timespanSeconds = randomDelay;
         StartCoroutine(trainSpawn);
     }
@@ -81,7 +81,6 @@ public class TrainScript : MonoBehaviour
         timerStarted = true;
         while (timespanSeconds > 0)
         {
-            print(timespanSeconds);
             timespanSeconds--;
             yield return new WaitForSeconds(1);
         }
@@ -99,7 +98,6 @@ public class TrainScript : MonoBehaviour
         redLight.SetActive(true);
         yield return new WaitForSeconds(1);
         trainIsNext = true;
-        print(" train next"+trainIsNext);
         MakeTrain();
 
     }
