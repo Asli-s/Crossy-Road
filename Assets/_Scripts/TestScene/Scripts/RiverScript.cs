@@ -59,23 +59,30 @@ public class RiverScript : MonoBehaviour
 
             raftSize = Random.Range(3, 5);
             pattel = false;
-            randomDirection = Random.Range(0, 2);
-            if (randomDirection == 0)
-            {
-                leftToRight = false;
 
+      
 
-            }
-            else
-            {
-
-
-
-                leftToRight = true;
-            }
             MakeFirstRaft();
         }
     }
+
+
+    public void choseDirection(int riverNum)
+    {
+      
+        if (riverNum % 2 == 0)
+        {
+            leftToRight = false;
+
+        }
+        else
+        {
+            leftToRight = true;
+
+        }
+
+    }
+
 
     void MakeRiverBorder()
     {
@@ -178,17 +185,12 @@ public class RiverScript : MonoBehaviour
             instantiatedRaft.transform.SetParent(raftParent.transform);
             instantiatedRaft.transform.localPosition = new Vector3(i + xAdjust, 0.3f, 0);
         }
-        /*
-                instantiatedRaft = Instantiate(Raft, new Vector3(0, -.5f, this.gameObject.transform.localPosition.z), Quaternion.identity);
-                instantiatedRaft.transform.SetParent(raftParent.transform);
-                instantiatedRaft.transform.localPosition = new Vector3(0 + xAdjust, 0.3f, 0);
-
-
-                instantiatedRaft = Instantiate(Raft, new Vector3(1, -.5f, this.gameObject.transform.localPosition.z), Quaternion.identity);
-                instantiatedRaft.transform.SetParent(raftParent.transform);
-                instantiatedRaft.transform.localPosition = new Vector3(1 + xAdjust, 0.3f, 0);*/
-
+       
         raftObjects.Add(raftParent);
       
     }
+
+
+ 
+
 }

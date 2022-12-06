@@ -24,6 +24,24 @@ public class Raft : MonoBehaviour
         {
             transform.rotation *= Quaternion.Euler(0, 180, 0);
         }
+        MakeCoin();
+    }
+
+    void MakeCoin()
+    {
+
+        int randomCoinNum = Random.Range(0, 8);
+        if (randomCoinNum == 0) //probability = 1/8
+        {
+            GameObject Coin = GetComponentInParent<RiverScript>().GetComponentInParent<FloorData>().CoinObject;
+
+            int raftCoinPlace = Random.Range(0, this.gameObject.transform.childCount);
+
+            GameObject coinObject = Instantiate(Coin, new Vector3(this.gameObject.transform.GetChild(raftCoinPlace).transform.position.x, this.gameObject.transform.position.y + 0f, this.gameObject.transform.position.z - 0.3f), Quaternion.Euler(0, 0, 0));
+
+            coinObject.transform.SetParent(this.gameObject.transform.GetChild(raftCoinPlace).transform);
+
+        }
     }
 
     void Update()

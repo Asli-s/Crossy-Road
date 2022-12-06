@@ -27,13 +27,21 @@ public class GrassScript : MonoBehaviour
 
 
         floorScript = this.gameObject.GetComponentInParent<FloorData>();
-       
+
+        MakeMiddlePlants();
+        MakeCoin();
+        MakeBorderPlants();
+
+    }
+
+    void MakeMiddlePlants()
+    {
         plantAmount = Random.Range(1, 4);
         for (int i = 0; i < plantAmount; i++)
         {
             randomPlant = Random.Range(0, 3);
-            randomPlace = Random.Range(-6,7);
-            randomPlaces.Add(randomPlace); 
+            randomPlace = Random.Range(-6, 7);
+            randomPlaces.Add(randomPlace);
 
             if (randomPlace != 0)
             {
@@ -42,27 +50,34 @@ public class GrassScript : MonoBehaviour
                 plant.transform.SetParent(floorScript.plantBarrierParent.transform);
 
             }
-            
+
 
         }
+    }
 
-        int randomCoinNum = Random.Range(0,3);
+
+    void MakeCoin()
+    {
+
+        int randomCoinNum = Random.Range(0, 6);
         if (randomCoinNum == luckyNum)
         {
             GameObject Coin = floorScript.CoinObject;
             for (int i = 0; i < randomPlaces.Count; i++)
             {
-                randomPlace = Random.Range(-6, 7);
+                randomPlace = Random.Range(-6, 6);
 
                 if (!randomPlaces.Contains(randomPlace) && alreadyInstantiatedCoin == false)
                 {
+                  
                     alreadyInstantiatedCoin = true;
-                    Instantiate(Coin, new Vector3(randomPlace, this.gameObject.transform.position.y +.8f, this.gameObject.transform.position.z - 0.4f), Quaternion.Euler(90,0,0));
+                    Instantiate(Coin, new Vector3(randomPlace, this.gameObject.transform.position.y + 0f, this.gameObject.transform.position.z-0.3f ), Quaternion.Euler(0, 0, 0));
                 }
             }
         }
-
-
+    }
+    void MakeBorderPlants()
+    {
 
         for (int i = leftMin; i < leftMax; i++)
         {
@@ -82,7 +97,5 @@ public class GrassScript : MonoBehaviour
 
 
         }
-
     }
-
 }

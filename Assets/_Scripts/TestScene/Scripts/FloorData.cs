@@ -29,6 +29,7 @@ public class FloorData : MonoBehaviour
 
     int floorWidth = 30;
     public int rowNum = 0;
+    public int riverNum=0;
 
     int levelCount = 20;
     int minZ = -8;
@@ -41,6 +42,8 @@ public class FloorData : MonoBehaviour
 
     public Dictionary<int, GameObject> floorRows = new Dictionary<int, GameObject>();
     Dictionary<string, GameObject> floorType = new Dictionary<string, GameObject>();
+
+    float yPosition =0;
 
 
     float row;
@@ -74,36 +77,20 @@ public class FloorData : MonoBehaviour
         for (int j = minZ; j < levelCount; j++)
         {
 
-            int randomProbability = Random.Range(0, 100);
-            if (randomProbability <= 4)
-            {
-                floorName = "Train";
-            }
-            else if (randomProbability > 4 && randomProbability <= 34)
-            {
-                floorName = "Street";
-            }
-            else if (randomProbability > 34 && randomProbability <= 64)
-            {
-                floorName = "River";
-            }
-            else if (randomProbability > 64 && randomProbability <= 99)
-            {
-                floorName = "Grass";
-            }
-
-
+         yPosition =   ChoseFloor();
+         
 
 
             if (j == 0 || j == 1)
             {
                 floorName = "Grass";
+                yPosition = -0.95f;
             }
 
 
 
 
-            currentFloor = Instantiate(floorType[floorName], new Vector3(15 - floorWidth / 2, -1, rowNum + adjustZPosition), Quaternion.identity);
+            currentFloor = Instantiate(floorType[floorName], new Vector3(15 - floorWidth / 2, yPosition, rowNum + adjustZPosition), Quaternion.identity);
             currentFloor.name = floorName;
             currentFloor.transform.SetParent(this.gameObject.transform);
 
@@ -112,6 +99,8 @@ public class FloorData : MonoBehaviour
             {
                 currentFloor.AddComponent<RiverScript>();
                 floorRows.Add(rowNum, currentFloor);
+                riverNum++;
+                currentFloor.GetComponent<RiverScript>().choseDirection(riverNum);
 
             }
             else if (currentFloor.name == "Grass")
@@ -148,32 +137,48 @@ public class FloorData : MonoBehaviour
     }
 
 
-
-
-
-    public void nextFloor()
+   float ChoseFloor()
     {
-
         int randomProbability = Random.Range(0, 100);
         if (randomProbability <= 4)
         {
             floorName = "Train";
+         return   yPosition = -1;
         }
         else if (randomProbability > 4 && randomProbability <= 34)
         {
             floorName = "Street";
+            return yPosition = -1.01f;
+
         }
         else if (randomProbability > 34 && randomProbability <= 64)
         {
             floorName = "River";
+            return yPosition = -1.05f;
+
         }
         else if (randomProbability > 64 && randomProbability <= 99)
         {
             floorName = "Grass";
+            return yPosition = -.95f;
+        }
+        else
+        {
+            return yPosition;
         }
 
+    }
 
-        currentFloor = Instantiate(floorType[floorName], new Vector3(15 - floorWidth / 2, -1, rowNum + adjustZPosition), Quaternion.identity);
+
+
+    public void nextFloor(int floorCount)
+    {
+
+
+        yPosition = ChoseFloor();
+
+
+        currentFloor = Instantiate(floorType[floorName], new Vector3(15 - floorWidth / 2, yPosition, rowNum + adjustZPosition), Quaternion.identity);
         currentFloor.name = floorName;
         currentFloor.transform.SetParent(this.gameObject.transform);
 
@@ -182,6 +187,9 @@ public class FloorData : MonoBehaviour
         {
             currentFloor.AddComponent<RiverScript>();
             floorRows.Add(rowNum, currentFloor);
+            riverNum++;
+            currentFloor.GetComponent<RiverScript>().choseDirection(riverNum);
+
 
         }
         else if (currentFloor.name == "Grass")
@@ -210,7 +218,11 @@ public class FloorData : MonoBehaviour
 
 
         rowNum++;
+        if(floorCount > 10)
+        {
+
         DeleteFloor();
+        }
 
     }
 
@@ -234,7 +246,8 @@ public class FloorData : MonoBehaviour
 
     void FirstFloor()
     {
-        currentFloor = Instantiate(floorType["Grass"], new Vector3(15 - floorWidth / 2, -1, minZ - 1 + adjustZPosition), Quaternion.identity);
+        yPosition = -.95f;
+        currentFloor = Instantiate(floorType["Grass"], new Vector3(15 - floorWidth / 2, yPosition, minZ - 1 + adjustZPosition), Quaternion.identity);
         currentFloor.name = floorName;
         currentFloor.transform.SetParent(this.gameObject.transform);
        

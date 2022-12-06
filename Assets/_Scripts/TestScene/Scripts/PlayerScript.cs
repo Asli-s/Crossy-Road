@@ -16,10 +16,12 @@ public class PlayerScript : MonoBehaviour
     public GameObject Player;
     public GameObject Alert;
     public GameObject barrierObjects;
+    public GameObject Cam;
 
     bool checkRaft = false;
 
     bool validPosition;
+    public bool moved = false;
 
     bool clickOnce = false;
     public bool died = false;
@@ -39,6 +41,7 @@ public class PlayerScript : MonoBehaviour
     bool onRaft;
     bool moveUp = false;
     bool moveDown = false;
+    int downCount = 0;
     bool onWater = false;
     bool dieAnim = false;
     int factor = 1;
@@ -51,6 +54,11 @@ public class PlayerScript : MonoBehaviour
     public TMPro.TextMeshProUGUI streetCountText;
     bool updated = false;
 
+    public TMPro.TextMeshProUGUI coinCountText;
+    public int coinCount = 0;
+    public bool riverDeath = false;
+    PlayerFollow camScript;
+    bool deathReset = false;
 
     private void Start()
     {
@@ -59,201 +67,257 @@ public class PlayerScript : MonoBehaviour
         //DIE zoom
 
 
-        //BIRD // camera move
-        //coins
         //SOUND
 
-        // nextfloor //delete floor
 
-        //ANIMATIONS  -pattel, raft
 
 
         //boundaries -8, 5
         streetCount = 0;
         maxStreetCount = 0;
 
+        camScript = Cam.GetComponent<PlayerFollow>();
     }
 
 
     private void Update()
     {
-        /* if (died == true && alertShow == false)
-         {
-
-
-         }*/
-
-
+        if (died == true && alertShow == false)
+        {
+            alertShow = true;
+            Die();
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             string currentSene = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene(currentSene);
         }
 
-
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+        if (camScript.birdCatch == true && deathReset == false) 
         {
-            print(
-       gameObject.transform.position);
+           
+            transform.position += new Vector3(0, 0, -1) * Time.deltaTime * 20;
+            
 
-            if (percentage == 1 && died == false)
+        }
+        else if(camScript.birdCatch == false)
+        {
+
+
+
+
+          
+
+
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
             {
 
-                lerpTime = 1;
-                currentLerpTime = 0;
-                justJump = true;
-                nextIsRaft = false;
-                checkRaft = false;
-                nextIsPattel = false;
-                firstInput = true;
-                setPos = false;
-                moveDown = false;
-                moveUp = false;
-                updated = false;
+
+                if (percentage == 1 && died == false &&camScript.birdDeath ==false)
+                {
+
+                    lerpTime = 1;
+                    currentLerpTime = 0;
+                    justJump = true;
+                    nextIsRaft = false;
+                    checkRaft = false;
+                    nextIsPattel = false;
+                    firstInput = true;
+                    setPos = false;
+                    moveDown = false;
+                    moveUp = false;
+                    updated = false;
+                    moved = false;
+
+                }
 
             }
-
-        }
-        startPos = gameObject.transform.position;
+            startPos = gameObject.transform.position;
 
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && clickOnce == false && died == false)
-        {
-            endPos = new Vector3(Mathf.Round(transform.position.x), 0, Mathf.Round(transform.position.z) + steps);
-            validPosition = checkValidJump(endPos);
-            clickOnce = true;
-            moveUp = true;
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow) && clickOnce == false && died == false)
-        {
-            endPos = new Vector3(Mathf.Round(transform.position.x), 0, Mathf.Round(transform.position.z) - steps);
-
-            validPosition = checkValidJump(endPos);
-            clickOnce = true;
-            moveDown = true;
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow) && clickOnce == false && died == false)
-
-        {
-            endPos = new Vector3(Mathf.Round(transform.position.x) + steps, 0, Mathf.Round(transform.position.z));
-
-            validPosition = checkValidJump(endPos);
-            clickOnce = true;
-
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && clickOnce == false && died == false)
-        {
-            endPos = new Vector3(Mathf.Round(transform.position.x) - steps, 0, Mathf.Round(transform.position.z));
-
-
-            validPosition = checkValidJump(endPos);
-            clickOnce = true;
-        }
-
-
-        if (firstInput == true)
-        {
-            currentLerpTime += Time.deltaTime * 5.5f;
-            percentage = currentLerpTime / lerpTime;
-
-            if (nextIsRaft == false && validPosition == true || nextIsPattel == true)
+            if (Input.GetKeyDown(KeyCode.UpArrow) && clickOnce == false && died == false)
             {
+                endPos = new Vector3(Mathf.Round(transform.position.x), 0, Mathf.Round(transform.position.z) + steps);
+                validPosition = checkValidJump(endPos);
+                clickOnce = true;
+                moveUp = true;
+                downCount = 0;
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow) && clickOnce == false && died == false)
+            {
+                endPos = new Vector3(Mathf.Round(transform.position.x), 0, Mathf.Round(transform.position.z) - steps);
 
-                onRaft = false;
-                if (nextIsPattel == true)
+                validPosition = checkValidJump(endPos);
+                clickOnce = true;
+                moveDown = true;
+                downCount++;
+                if (downCount == 3 && validPosition)
                 {
-                    if (setPos == false)
+
+                    Cam.GetComponent<PlayerFollow>().BirdDeath();
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow) && clickOnce == false && died == false)
+
+            {
+                endPos = new Vector3(Mathf.Round(transform.position.x) + steps, 0, Mathf.Round(transform.position.z));
+
+                validPosition = checkValidJump(endPos);
+                clickOnce = true;
+
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && clickOnce == false && died == false)
+            {
+                endPos = new Vector3(Mathf.Round(transform.position.x) - steps, 0, Mathf.Round(transform.position.z));
+
+
+                validPosition = checkValidJump(endPos);
+                clickOnce = true;
+            }
+
+
+            if (firstInput == true)
+            {
+                currentLerpTime += Time.deltaTime * 3.5f;
+                percentage = currentLerpTime / lerpTime;
+
+                if (nextIsRaft == false && validPosition == true || nextIsPattel == true)
+                {
+
+                    onRaft = false;
+                    if (nextIsPattel == true)
+                    {
+                        if (setPos == false)
+                        {
+                            setPos = true;
+                            transform.position = pattelPos;
+
+
+
+                        }
+                    }
+                    else if (nextIsPattel == false)
+                    {
+                        transform.position = Vector3.Lerp(startPos, endPos, percentage);
+
+
+                        if (onWater == true && dieAnim == false)
+                        {
+                            dieAnim = true;
+                            riverDeath = true;
+                            Die();
+                        }
+                    }
+
+                    if (validPosition == true && updated == false)
+                    {
+
+                        updated = true;
+                        moved = true;
+                        Cam.GetComponent<PlayerFollow>().alreadyCalled = false;
+
+                        UpdateStreetCount();
+                    }
+
+
+                }
+
+                else if (nextIsRaft == true && nextIsPattel == false || validPosition == false && onRaft == true && nextIsPattel == false)
+                {
+
+                    if (setPos == false && nextIsRaft == true)
                     {
                         setPos = true;
-                        transform.position = pattelPos;
-                        print("player pos on pattel " + transform.position + " pattelpos " + pattelPos
-                            );
+                        transform.position = (raftPos);
+
+
+
 
                     }
-                }
-                else if (nextIsPattel == false)
-                {
-                    transform.position = Vector3.Lerp(startPos, endPos, percentage);
 
-                  
-
-                    if (onWater == true && dieAnim == false)
+                    if (transform.position.x <= 5 + raftPlayerPos && transform.position.x >= -8 - raftPlayerPos)
                     {
-                        dieAnim = true;
-                        Die();
+
+
+                        transform.position += new Vector3(factor * moveSpeed, 0, 0) * Time.deltaTime;
                     }
-                }
+                    else if (transform.position.x > 5 + raftPlayerPos || transform.position.x < -8 - raftPlayerPos)
+                    {
+                        died = true;
+                        transform.position += new Vector3(factor * moveSpeed, 0, 0) * Time.deltaTime * 10;
 
-                if (validPosition == true && updated == false)
-                {
-                    updated = true;
-                 
-                    UpdateStreetCount();
-                }
-
-
-            }
-
-            else if (nextIsRaft == true && nextIsPattel == false || validPosition == false && onRaft == true && nextIsPattel == false)
-            {
-
-                if (setPos == false && nextIsRaft == true)
-                {
-                    setPos = true;
-                    transform.position = (raftPos);
-                    print("on raft + " + raftPos);
-                }
-
-                if (transform.position.x <= 5 + raftPlayerPos && transform.position.x >= -8 - raftPlayerPos)
-                {
-
-
-                    transform.position += new Vector3(factor * moveSpeed, 0, 0) * Time.deltaTime;
-                }
-                else if (transform.position.x > 5 + raftPlayerPos || transform.position.x < -8 - raftPlayerPos)
-                {
-                    died = true;
-                    transform.position += new Vector3(factor * moveSpeed, 0, 0) * Time.deltaTime * 10;
+                    }
+                    if (validPosition == true && updated == false)
+                    {
+                        updated = true;
+                        moved = true;
+                        Cam.GetComponent<PlayerFollow>().alreadyCalled = false;
+                        UpdateStreetCount();
+                    }
 
                 }
-                if ( validPosition == true && updated == false)
+
+
+
+                if (percentage > 0.8f)
                 {
-                    updated = true;
-                  
-                    UpdateStreetCount();
+                    percentage = 1;
+                    justJump = false;
+                    clickOnce = false;
+                }
+                if (Mathf.Round(percentage) == 1)
+                {
+                    justJump = false;
+
+                }
+
+
+                if (startPos == endPos || validPosition == false)
+                {
+                    clickOnce = false;
                 }
 
             }
-
-
-
-            if (percentage > 0.8f)
-            {
-                percentage = 1;
-                justJump = false;
-                clickOnce = false;
-            }
-            if (Mathf.Round(percentage) == 1)
-            {
-                justJump = false;
-              
-            }
-
-
-            if (startPos == endPos || validPosition == false)
-            {
-                clickOnce = false;
-            }
-
         }
     }
 
-    void Die
-        ()
+
+
+
+    void Die()
     {
-        Instantiate(RiverDeathPrefab, new Vector3(this.gameObject.transform.position.x, 1, this.gameObject.transform.position.z + 1), Quaternion.identity);
-        this.gameObject.transform.localScale = new Vector3(0, 0, 0);
+        if (riverDeath == true)
+        {
+
+            Instantiate(RiverDeathPrefab, new Vector3(this.gameObject.transform.position.x, 1, this.gameObject.transform.position.z + 1), Quaternion.identity);
+            this.gameObject.transform.localScale = new Vector3(0, 0, 0);
+        }
+        Invoke("ActivateRestartAlert", 0.4f);
     }
+
+
+
+
+
+    void ActivateRestartAlert()
+    {
+        Alert.SetActive(true);
+        if (camScript.birdDeath == true)
+        {
+
+            Invoke("StopPlayerMovement", 0.2f);
+        }
+    }
+    void StopPlayerMovement()
+    {
+        deathReset = true;
+        camScript.birdDeath = false;
+        transform.position = new Vector3(0, 0, -100);
+    }
+
+
+
+
 
     bool checkValidJump(Vector3 nextPosition)
     {
@@ -262,7 +326,7 @@ public class PlayerScript : MonoBehaviour
         string nextName = floorData?.floorRows[currentZ]?.name;
         if (nextName == "River")
         {
-            //check raft
+
             RiverScript riverScript = floorData.floorRows[currentZ].GetComponent<RiverScript>();
 
 
@@ -270,7 +334,7 @@ public class PlayerScript : MonoBehaviour
             {
 
 
-                if (riverScript.pattel == false)  //raft -not pattel
+                if (riverScript.pattel == false)
                 {
                     GameObject raft = floorData.floorRows[currentZ].gameObject.transform.GetChild(j).gameObject;
                     int childNum = raft.transform.childCount;
@@ -279,12 +343,12 @@ public class PlayerScript : MonoBehaviour
                         if (riverScript.leftToRight == true)
                         {
 
-                            if (nextPosition.x == Mathf.Round(raft.transform.GetChild(i).transform.position.x+0.2f) &&checkRaft ==false)
+                            if (nextPosition.x == Mathf.Round(raft.transform.GetChild(i).transform.position.x + 0.2f) && checkRaft == false)
                             {
                                 /**/
                                 checkRaft = true;
                                 raftPlayerPos = i;
-                                print("raftplayer position" + raftPlayerPos);
+
 
 
                                 factor = 1;
@@ -293,13 +357,20 @@ public class PlayerScript : MonoBehaviour
                                 nextIsRaft = true;
                                 onRaft = true;
                                 onWater = false;
-                                raftPos = new Vector3(raft.transform.GetChild(raftPlayerPos).transform.position.x+0.2f , Mathf.Round(transform.position.y), nextPosition.z + 0.1f);
-                                print("yes - raft-pos " + raftPos);
+                                raftPos = new Vector3(raft.transform.GetChild(raftPlayerPos).transform.position.x + 0.2f, Mathf.Round(transform.position.y), nextPosition.z + 0.1f);
+
+
+                                for (int k = 0; k < childNum; k++)
+                                {
+
+                                    Animator anim = raft.transform.GetChild(k).GetChild(0).gameObject.GetComponent<Animator>();
+
+                                    anim.SetBool("onRaft", true);
+                                }
                             }
                             else
                             {
-                                // died ;
-                                /* print("no");*/
+
                                 onWater = true;
 
                             }
@@ -309,24 +380,29 @@ public class PlayerScript : MonoBehaviour
 
                         else if (riverScript.leftToRight == false)
                         {
-                            if (nextPosition.x == Mathf.Round(raft.transform.GetChild(i).transform.position.x+0.2f))
+                            if (nextPosition.x == Mathf.Round(raft.transform.GetChild(i).transform.position.x + 0.2f))
                             {
                                 raftPlayerPos = i; //big raft - multiple small rafts 
-                                print("raftplayer position"+raftPlayerPos);
                                 factor = (-1);
                                 moveSpeed = riverScript.moveSpeed;
                                 nextIsRaft = true;
                                 onWater = false;
-                           
-                                raftPos = new Vector3(raft.transform.GetChild(raftPlayerPos).transform.position.x+0.2f, Mathf.Round(transform.position.y), nextPosition.z + 0.1f);
+
+                                for (int k = 0; k < raft.transform.childCount; k++)
+                                {
+                                    Animator anim = raft.transform.GetChild(k).GetChild(0).gameObject.GetComponent<Animator>();
+
+                                    anim.SetBool("onRaft", true);
+                                }
+
+                                raftPos = new Vector3(raft.transform.GetChild(raftPlayerPos).transform.position.x + 0.2f, Mathf.Round(transform.position.y), nextPosition.z + 0.1f);
                                 // }
                                 onRaft = true;
-                                print("yes1- raft-pos " + raftPos);
                             }
                             else
                             {
 
-                                /*    print("no1");*/
+
                                 onWater = true;
 
                             }
@@ -343,16 +419,18 @@ public class PlayerScript : MonoBehaviour
                     if (nextPosition.x >= Mathf.Round(pattel.transform.position.x) && nextPosition.x <= (Mathf.Round(pattel.transform.position.x) + 0.3f))
                     {
                         onWater = false;
-                        print("pattel  " + pattel.transform.position);
 
+                        Animator anim = pattel.transform.GetChild(0).gameObject.GetComponent<Animator>();
+
+                        anim.SetBool("onPattel", true);
                         nextIsPattel = true;
                         pattelPos = new Vector3(pattel.transform.position.x + 0.3f, Mathf.Round(pattel.transform.position.y), nextPosition.z + 0.3f);
+
                     }
                     else
                     {
                         //die
                         onWater = true;
-                        print("no1 pattel");
 
                     }
 
@@ -372,16 +450,13 @@ public class PlayerScript : MonoBehaviour
 
                     if (nextPosition.z == Mathf.Round(barrierObjects.transform.GetChild(i).transform.position.z))
                     {
-                        print("onraft" + onRaft);
-                        print("barrier");
+
                         return false;
                     }
                 }
 
             }
         }
-
-
 
         return true;
     }
@@ -392,22 +467,27 @@ public class PlayerScript : MonoBehaviour
     void UpdateStreetCount()
     {
 
-       
-        if(moveDown == true)
+
+        if (moveDown == true)
         {
             streetCount--;
         }
-        else if(moveUp ==true)
+        else if (moveUp == true)
         {
-            floorData.nextFloor();
             streetCount++;
 
+
         }
-        if(streetCount> maxStreetCount)
+        if (streetCount > maxStreetCount)
         {
+            floorData.nextFloor(streetCount);
             maxStreetCount = streetCount;
-        streetCountText.text = maxStreetCount.ToString();
+            streetCountText.text = maxStreetCount.ToString();
         }
 
+
     }
+
+
+
 }
