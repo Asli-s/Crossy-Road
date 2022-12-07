@@ -100,7 +100,7 @@ public class PlayerScript : MonoBehaviour
             
 
         }
-        else if(camScript.birdCatch == false)
+        else if(camScript.birdCatch == false && camScript.birdDeath == false)
         {
 
 
@@ -193,6 +193,7 @@ public class PlayerScript : MonoBehaviour
                             transform.position = pattelPos;
 
 
+                            FindObjectOfType<AudioManager>().Play("Raft");
 
                         }
                     }
@@ -230,6 +231,7 @@ public class PlayerScript : MonoBehaviour
                         setPos = true;
                         transform.position = (raftPos);
 
+                        FindObjectOfType<AudioManager>().Play("Raft");
 
 
 
@@ -288,6 +290,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (riverDeath == true)
         {
+            FindObjectOfType<AudioManager>().Play("Water");
 
             Instantiate(RiverDeathPrefab, new Vector3(this.gameObject.transform.position.x, 1, this.gameObject.transform.position.z + 1), Quaternion.identity);
             this.gameObject.transform.localScale = new Vector3(0, 0, 0);
@@ -439,6 +442,11 @@ public class PlayerScript : MonoBehaviour
 
         }
 
+
+        if (nextName == "Street")
+        {
+            FindObjectOfType<TrafficSound>().PlayCarSound();
+        }
         if (barrierObjects.transform.childCount != 0)
         {
             for (int i = 0; i < barrierObjects.transform.childCount; i++)

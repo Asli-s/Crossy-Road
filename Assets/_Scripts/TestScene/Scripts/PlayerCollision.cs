@@ -23,14 +23,22 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-         
+            if(playerScript.died == false)
+            {
+
+            FindObjectOfType<AudioManager>().Play("DieEnemy");
+            }
+
+
             playerScript.died = true;
             this.gameObject.transform.parent.gameObject.transform.localScale = new Vector3(this.gameObject.transform.parent.gameObject.transform.localScale.x,0.01f, this.gameObject.transform.parent.gameObject.transform.localScale.z);
             playerScript.justJump = false;
         }
         if(other.tag == "Coin")
         {
-          
+            FindObjectOfType<AudioManager>().Play("Coin");
+
+
             coinCount++;
             coinCountText.text = coinCount.ToString(); 
 

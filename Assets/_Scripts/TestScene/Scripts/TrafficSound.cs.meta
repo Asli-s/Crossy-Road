@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0b9a3581f78e1724aa05ba7315688e09
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - carPass: {instanceID: 0}
+  - trainSound: {instanceID: 0}
+  - carSound: {fileID: 8300000, guid: 23a4dd45b8c2c9c40af03bd6f620722f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

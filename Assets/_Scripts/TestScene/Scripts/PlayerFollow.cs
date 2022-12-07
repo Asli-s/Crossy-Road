@@ -19,6 +19,7 @@ public class PlayerFollow : MonoBehaviour
     public bool birdDeath = false;
     public bool birdCatch = false;
 
+    int resetSeconds = 4;
     private void Start()
     {
         playerScript = Player.GetComponent<PlayerScript>();
@@ -33,7 +34,7 @@ public class PlayerFollow : MonoBehaviour
         if (playerScript.died == false && Player.transform.position.x < 6 && Player.transform.position.x > -6 && birdDeath == false && birdCatch ==false)
         {
             newPos = Vector3.Lerp(gameObject.transform.position, Player.transform.position, Time.deltaTime * multiplier);
-            gameObject.transform.position = new Vector3(newPos.x, 7f, newPos.z);
+            gameObject.transform.position = new Vector3(newPos.x, 6.5f, newPos.z);
 
         }
 
@@ -79,7 +80,7 @@ public class PlayerFollow : MonoBehaviour
 
         if (countDownActive == false)
         {
-            secondsToWait = 3;
+            secondsToWait = resetSeconds;
             startAgain = false;
 
             StartCoroutine(CountDown(secondsToWait));
@@ -88,7 +89,7 @@ public class PlayerFollow : MonoBehaviour
         }
         else
         {
-            secondsToWait = 3;
+            secondsToWait = resetSeconds;
             StopCoroutine(CountDown(secondsToWait));
             startAgain = true;
 
@@ -98,7 +99,7 @@ public class PlayerFollow : MonoBehaviour
     }
     void ActivateNewCountDown()
     {
-        secondsToWait = 3;
+        secondsToWait = resetSeconds;
 
         StartCoroutine(CountDown(secondsToWait));
 
@@ -111,8 +112,7 @@ public class PlayerFollow : MonoBehaviour
 
         while (secondsToWait > 0)
         {
-            print(secondsToWait + "" + startAgain);
-
+         
             multiplier -= 0.4f;
             secondsToWait--;
             if (secondsToWait == 0)
@@ -128,8 +128,7 @@ public class PlayerFollow : MonoBehaviour
         }
         countDownActive = false;
         startAgain = false;
-        print("end");
-        print("seconds" + secondsToWait);
+      
         if (secondsToWait != 0)
         {
 
@@ -141,10 +140,11 @@ public class PlayerFollow : MonoBehaviour
 
     public void BirdDeath()
     {
-        if (playerScript.riverDeath == false || playerScript.died ==false)
+        if (playerScript.riverDeath == false && playerScript.died ==false)
         {
 
             StopCoroutine(CountDown(secondsToWait));
+            FindObjectOfType<AudioManager>().Play("Eagle");
 
             birdDeath = true;
             instantiatedObject = Instantiate(DeathBird, new Vector3(Player.transform.position.x, 2, Player.transform.position.z + 15), Quaternion.identity);

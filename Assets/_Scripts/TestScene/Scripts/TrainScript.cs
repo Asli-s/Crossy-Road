@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class TrainScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+
+
     GameObject trafficLightObject;
     GameObject redLight;
     GameObject greenLight;
@@ -15,7 +17,7 @@ public class TrainScript : MonoBehaviour
 
     IEnumerator trainSpawn;
     IEnumerator trafficLight;
-  
+
     bool trainReady = false;
     bool timerStarted = false;
     bool destroyed = false;
@@ -93,11 +95,11 @@ public class TrainScript : MonoBehaviour
     }
     IEnumerator TrafficLight()
     {
-
+        FindObjectOfType<TrafficSound>().PlayTrainSound();
         greenLight.SetActive(false);
         redLight.SetActive(true);
         yield return new WaitForSeconds(1);
-      
+
         MakeTrain();
 
     }
