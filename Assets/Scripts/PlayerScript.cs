@@ -64,6 +64,7 @@ public class PlayerScript : MonoBehaviour
     int randomQuack;
     int stepCount =0;
     bool didQuack = false;
+    public bool birdDeath=false;
 
     private void Start()
     {

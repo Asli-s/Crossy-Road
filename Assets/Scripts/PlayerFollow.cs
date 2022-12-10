@@ -163,6 +163,7 @@ public class PlayerFollow : MonoBehaviour
             {
 
             birdDeath = true;
+                playerScript.birdDeath = true;
             instantiatedObject = Instantiate(DeathBird, new Vector3(Player.transform.position.x+0.2f, 2, Player.transform.position.z + 15), Quaternion.identity);
             Invoke("Death", 0.6f);
             }

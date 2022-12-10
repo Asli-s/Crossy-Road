@@ -24,7 +24,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            if(playerScript.died == false)
+            if(playerScript.died == false && playerScript.birdDeath ==false)
             {
 
             FindObjectOfType<AudioManager>().Play("DieEnemy");
