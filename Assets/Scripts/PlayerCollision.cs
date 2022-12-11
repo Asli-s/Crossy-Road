@@ -13,12 +13,12 @@ public class PlayerCollision : MonoBehaviour
     {
         playerScript = this.gameObject.transform.parent.GetComponent<PlayerScript>();
        
-      //  coinCountText = coinCount.tText;
+     
         if (PlayerPrefs.HasKey("Coins"))
         {
 
             coinCount = PlayerPrefs.GetInt("Coins");
-            print("Haskey" + coinCount);
+          
         }
         else
         {
