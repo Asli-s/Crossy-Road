@@ -352,7 +352,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -20, y: -20}
+  m_AnchoredPosition: {x: -20, y: -10}
   m_SizeDelta: {x: 40, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &170274826
@@ -1428,7 +1428,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 6.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2581,7 +2581,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -327}
-  m_SizeDelta: {x: 110, y: 110}
+  m_SizeDelta: {x: 129, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1174299564
 MonoBehaviour:
@@ -3973,6 +3973,7 @@ MonoBehaviour:
   riverCell: {fileID: 3536868546543757359, guid: 968c35ffd5bb99a4bb97515563fcd477, type: 3}
   streetCell: {fileID: 3536868546543757359, guid: fd862efdfb856fe4fb47d0ec3e6da31b, type: 3}
   grassCell: {fileID: 3536868546543757359, guid: 0f4423fa7a6c6694fa6339ac0e26bf8d, type: 3}
+  grassCellDark: {fileID: 3536868546543757359, guid: 1a45e5586a8cd73489c80be38717b229, type: 3}
   trainCell: {fileID: 3536868546543757359, guid: baf2130be8993c3458e462ec2caa1d22, type: 3}
   floorParent: {fileID: 1909275849}
   plantBarrierParent: {fileID: 1295518498}
@@ -4238,8 +4239,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 90
+  m_fontSizeBase: 90
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4470,8 +4471,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 90
+  m_fontSizeBase: 90
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

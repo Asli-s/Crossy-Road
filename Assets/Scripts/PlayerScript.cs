@@ -350,7 +350,7 @@ public class PlayerScript : MonoBehaviour
                         if (riverScript.leftToRight == true)
                         {
 
-                            if (nextPosition.x == Mathf.Round(raft.transform.GetChild(i).transform.position.x + 0.3f) && checkRaft == false)
+                            if (nextPosition.x == Mathf.Round(raft.transform.GetChild(i).transform.position.x + 0.24f) && checkRaft == false)
                             {
                                 checkRaft = true;
                                 raftPlayerPos = i;
