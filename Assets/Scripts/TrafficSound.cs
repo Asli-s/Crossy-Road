@@ -18,34 +18,25 @@ public class TrafficSound : MonoBehaviour
         
     }
 
+
+
     public void PlayTrainSound()
     {
 
-
         trafficSound.clip = trainSound;
-
-        trafficSound.volume = .05f;
-
+        trafficSound.volume = .15f;
         trafficSound.Play();
-
-
-
     }
 
 
 
-    public void PlayCarSound()
-    {
 
+    public void PlayCarHornSound()
+    {
 
         trafficSound.clip = carSound;
         trafficSound.volume = .02f;
-
         trafficSound.Play();
-
-
-
-
 
     }
 
@@ -64,8 +55,7 @@ public class TrafficSound : MonoBehaviour
     {
      
         yield return new WaitForSeconds(seconds);
-        PlayCarSound();
-
+        PlayCarHornSound();
         alreadyPlaying = false;
     
 

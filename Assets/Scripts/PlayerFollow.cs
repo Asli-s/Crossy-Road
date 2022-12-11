@@ -20,6 +20,8 @@ public class PlayerFollow : MonoBehaviour
     public bool birdCatch = false;
 
     int resetSeconds = 5;
+      
+    
     private void Start()
     {
         playerScript = Player.GetComponent<PlayerScript>();
@@ -29,21 +31,22 @@ public class PlayerFollow : MonoBehaviour
 
     void Update()
     {
-
+     
 
         if (playerScript.died == false && Player.transform.position.x < 9 && Player.transform.position.x > -8 && birdDeath == false && birdCatch ==false )
         {
             if (playerScript.downCount > 1)
             {
-                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, new Vector3(Player.transform.position.x-2.5f, newPos.y, newPos.z), Time.deltaTime * 2f);
+                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, new Vector3(Player.transform.position.x-4.5f, newPos.y, newPos.z), Time.deltaTime * 2f);
 
 
             }
             else
             {
+                
 
-                newPos = new Vector3(Player.transform.position.x-2.5f, Player.transform.position.y, Player.transform.position.z + 8);
-                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position,newPos, Time.deltaTime * multiplier);
+                newPos = new Vector3(Player.transform.position.x-2.5f, Player.transform.position.y, Player.transform.position.z + 7);
+                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position,newPos, Time.deltaTime *multiplier );
 
             }
 
@@ -51,8 +54,9 @@ public class PlayerFollow : MonoBehaviour
 
   
 
-        if (playerScript.moved == true && alreadyCalled == false)
-        {
+        if (playerScript.moved == true && alreadyCalled == false && playerScript.died == false)
+         {
+          
             alreadyCalled = true;
 
             ActivateCoundown();

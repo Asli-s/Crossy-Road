@@ -5,17 +5,26 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     PlayerScript playerScript;
-    TMPro.TextMeshProUGUI coinCountText;
+  public  TMPro.TextMeshProUGUI coinCountText;
     int coinCount;
     public AudioSource Quack;
 
     private void Start()
     {
         playerScript = this.gameObject.transform.parent.GetComponent<PlayerScript>();
-        coinCount = playerScript.coinCount;
-        coinCountText = playerScript.coinCountText;
-        coinCountText.text = coinCount.ToString();
+       
+      //  coinCountText = coinCount.tText;
+        if (PlayerPrefs.HasKey("Coins"))
+        {
 
+            coinCount = PlayerPrefs.GetInt("Coins");
+            print("Haskey" + coinCount);
+        }
+        else
+        {
+            coinCount = 0;
+        }
+        coinCountText.text = coinCount.ToString();
 
 
     }
@@ -42,6 +51,8 @@ public class PlayerCollision : MonoBehaviour
 
 
             coinCount++;
+            PlayerPrefs.SetInt("Coins", coinCount);
+            PlayerPrefs.Save();
             coinCountText.text = coinCount.ToString(); 
 
         }
