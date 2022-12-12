@@ -158,7 +158,7 @@ public class PlayerScript : MonoBehaviour
     void GetInput()
     {
 
-        if (Application.platform == RuntimePlatform.Android)
+        if (Application.platform == RuntimePlatform.Android && died==false)
         {
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
@@ -568,10 +568,11 @@ public class PlayerScript : MonoBehaviour
 
     void Die()
     {
-        if (riverDeath == true)
+        if (riverDeath == true )
         {
+            died = true;
             FindObjectOfType<AudioManager>().Play("Water");
-
+            
             Instantiate(RiverDeathPrefab, new Vector3(this.gameObject.transform.position.x, 1, this.gameObject.transform.position.z + 1), Quaternion.identity);
             this.gameObject.transform.localScale = new Vector3(0, 0, 0);
         }
@@ -627,6 +628,7 @@ public class PlayerScript : MonoBehaviour
 
             Invoke("StopPlayerMovement", 0.2f);
         }
+       
     }
 
 

@@ -217,7 +217,7 @@ public class FloorData : MonoBehaviour
 
 
         }
-        else if (currentFloor.name == "Grass" || currentFloor.name == "Grass")
+        else if (currentFloor.name == "Grass" || currentFloor.name == "GrassDark")
         {
             grassNum++;
             currentFloor.AddComponent<GrassScript>();
@@ -226,11 +226,9 @@ public class FloorData : MonoBehaviour
         }
         else if (currentFloor.name == "Street")
         {
-            //  floorRows.Add(rowNum, currentFloor);
+            
             currentFloor.AddComponent<StreetScript>();
-            /*       rowNum ++;
-                   print(rowNum);
-   */
+         
             floorRows.Add(rowNum, currentFloor);
 
         }

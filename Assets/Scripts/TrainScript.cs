@@ -44,7 +44,7 @@ public class TrainScript : MonoBehaviour
     {
         if (trainReady == true && instantiatedTrain != null)
         {
-            instantiatedTrain.transform.position += new Vector3(-1, 0, 0) * 30 * Time.deltaTime;
+            instantiatedTrain.transform.position += new Vector3(-1, 0, 0) * 25 * Time.deltaTime;
             if (instantiatedTrain.transform.localPosition.x <= -1 && destroyed == false)
             {
                 destroyed = true;
