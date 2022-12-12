@@ -27,7 +27,7 @@ public class TrainScript : MonoBehaviour
         floorScript = this.gameObject.GetComponentInParent<FloorData>();
         trafficLightObject = Instantiate(floorScript.trafficLightObject, Vector3.zero, Quaternion.identity);
         trafficLightObject.transform.SetParent(this.gameObject.transform);
-        trafficLightObject.transform.localPosition = new Vector3(0.001f, 0.3f, -.2f);
+        trafficLightObject.transform.localPosition = new Vector3(0.001f, 0.3f, -.5f);
         trafficLightObject.transform.localScale = new Vector3(1.5f, 0.625f, 0.4f);
 
         redLight = trafficLightObject.transform.GetChild(0).transform.GetChild(0).gameObject;

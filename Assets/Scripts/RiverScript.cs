@@ -22,7 +22,7 @@ public class RiverScript : MonoBehaviour
 
     int randomDirection;
   
-    float zAdjust = -0.2f;
+    float zAdjust = -0.165f;
     float xAdjust = 0.2f;
 
     int raftSize = 3;
@@ -117,7 +117,7 @@ public class RiverScript : MonoBehaviour
             PattelsXPos.Add(RandomPattelPlace);
             if (!PattelsXPos.Contains(0))
             {
-                instantiatedPattel = Instantiate(Pattel, new Vector3(0 - .3f, transform.position.y + 0.6f, transform.position.z + 0.2f), Quaternion.identity);
+                instantiatedPattel = Instantiate(Pattel, new Vector3(0 - .3f, transform.position.y + 0.6f, transform.position.z +0.2f), Quaternion.identity);
                 instantiatedPattel.transform.SetParent(this.gameObject.transform);
                 PattelsXPos.Add(RandomPattelPlace);
             }

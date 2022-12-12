@@ -219,6 +219,7 @@ public class PlayerScript : MonoBehaviour
                         nextIsPattel = false;
                         firstInput = true;
                         setPos = false;
+                        onWater = false;
                         moveDown = false;
                         moveUp = false;
                         updated = false;
@@ -450,8 +451,12 @@ public class PlayerScript : MonoBehaviour
             }
 
         }
-
-
+/**/
+        else
+        {
+            onWater = false;
+        }
+/**/
         if (nextName == "Street")
         {
             FindObjectOfType<TrafficSound>().PlayCarHornSound();
