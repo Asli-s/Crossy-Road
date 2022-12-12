@@ -141,7 +141,7 @@ public class FloorData : MonoBehaviour
 
             }
 
-            print(grassNum);
+       
             rowNum++;
         }
 

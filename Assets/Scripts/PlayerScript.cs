@@ -75,6 +75,13 @@ public class PlayerScript : MonoBehaviour
     bool androidMoveRight = false;
 
 
+
+
+
+
+/**/
+
+
     private void Start()
     {
 
@@ -115,7 +122,7 @@ public class PlayerScript : MonoBehaviour
 
                 startPos = gameObject.transform.position;
 
-                HandleInput();
+              
 
                 if (firstInput == true)
                 {
@@ -151,84 +158,86 @@ public class PlayerScript : MonoBehaviour
     void GetInput()
     {
 
-
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Application.platform == RuntimePlatform.Android)
         {
-            startTouchPos = Input.GetTouch(0).position;
-            touched = false;
-            androidMoveUp = false;
-            androidMoveDown = false;
-            androidMoveLeft = false;
-            androidMoveRight = false;
-        }
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
-        {
-            endTouchPos = Input.GetTouch(0).position;
-
-
-            if (startTouchPos.y-5 <= endTouchPos.y && Mathf.Abs(endTouchPos.y - startTouchPos.y) >= Mathf.Abs(endTouchPos.x - startTouchPos.x-5) || Input.touchCount == 0)
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                touched = true;
-                androidMoveUp = true;
+                startTouchPos = Input.GetTouch(0).position;
+              
             }
-            else if (startTouchPos.x < endTouchPos.x && Mathf.Abs(endTouchPos.y - startTouchPos.y) < Mathf.Abs(endTouchPos.x - startTouchPos.x))
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-                touched = true;
-                androidMoveRight = true;
-            }
-            else if (startTouchPos.x > endTouchPos.x && Mathf.Abs(endTouchPos.y - startTouchPos.y) < Mathf.Abs(endTouchPos.x - startTouchPos.x))
-            {
-                touched = true;
-                androidMoveLeft = true;
-
-            }
-            else if (startTouchPos.y-5 > endTouchPos.y && Mathf.Abs(endTouchPos.y - startTouchPos.y) >= Mathf.Abs(endTouchPos.x - startTouchPos.x))
-            {
-                touched = true;
-                androidMoveDown = true;
-
-            }
-            else
-            {
-                touched = true;
-                androidMoveUp = true;
-            }
+                endTouchPos = Input.GetTouch(0).position;
 
 
-        }
-        if (touched == true && transform.position.x > -8 && transform.position.x < 7)
-        {
-
-            if (firstInput == false)
-            {
-                PlayQuackSound();
-            }
-
-            if (percentage == 1 && died == false && camScript.birdDeath == false)
-            {
-                lerpTime = 1;
-                currentLerpTime = 0;
-                justJump = true;
-                nextIsRaft = false;
-                checkRaft = false;
-                nextIsPattel = false;
-                firstInput = true;
-                setPos = false;
-                moveDown = false;
-                moveUp = false;
-                updated = false;
-                moved = false;
-                stepCount++;
-                if (stepCount == randomQuack && didQuack == false)
+                if (startTouchPos.y - 5 <= endTouchPos.y && Mathf.Abs(endTouchPos.y - startTouchPos.y) >= Mathf.Abs(endTouchPos.x - startTouchPos.x - 5) &&touched == false|| Input.touchCount == 0)
                 {
-                    didQuack = true;
-                    PlayQuackSound();
-                    Quack();
+                    touched = true;
+                    androidMoveUp = true;
                 }
+                else if (startTouchPos.x < endTouchPos.x && Mathf.Abs(endTouchPos.y - startTouchPos.y) < Mathf.Abs(endTouchPos.x - startTouchPos.x) && touched == false)
+                {
+                    touched = true;
+                    androidMoveRight = true;
+                }
+                else if (startTouchPos.x > endTouchPos.x && Mathf.Abs(endTouchPos.y - startTouchPos.y) < Mathf.Abs(endTouchPos.x - startTouchPos.x) && touched == false)
+                {
+                    touched = true;
+                    androidMoveLeft = true;
+
+                }
+                else if (startTouchPos.y - 5 > endTouchPos.y && Mathf.Abs(endTouchPos.y - startTouchPos.y) >= Mathf.Abs(endTouchPos.x - startTouchPos.x) && touched == false)
+                {
+                    touched = true;
+                    androidMoveDown = true;
+
+                }
+                else
+                {
+                    touched = true;
+                    androidMoveUp = true;
+                }
+
+
+                if (touched = true && transform.position.x > -8 && transform.position.x < 7)
+                {
+                    touched = false;
+
+                    if (firstInput == false)
+                    {
+                        PlayQuackSound();
+                    }
+
+                    if (percentage == 1 && died == false && camScript.birdDeath == false)
+                    {
+
+                        lerpTime = 1;
+                        currentLerpTime = 0;
+                        justJump = true;
+                        nextIsRaft = false;
+                        checkRaft = false;
+                        nextIsPattel = false;
+                        firstInput = true;
+                        setPos = false;
+                        moveDown = false;
+                        moveUp = false;
+                        updated = false;
+                        moved = false;
+                        stepCount++;
+                        if (stepCount == randomQuack && didQuack == false)
+                        {
+                            didQuack = true;
+                            PlayQuackSound();
+                            Quack();
+                        }
+                    }
+                    HandleInput();
+                }
+
             }
+           
 
         }
-
 
         else
         {
@@ -263,7 +272,7 @@ public class PlayerScript : MonoBehaviour
                         Quack();
                     }
                 }
-
+                HandleInput();
             }
 
 
@@ -662,3 +671,4 @@ public class PlayerScript : MonoBehaviour
 
 
 }
+    

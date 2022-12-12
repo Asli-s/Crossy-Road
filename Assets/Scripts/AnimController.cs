@@ -31,6 +31,7 @@ public class AnimController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (playerScript.justJump == true)
         {
             anim.SetBool("jump", true);
@@ -83,30 +84,33 @@ public class AnimController : MonoBehaviour
                 }
             }
         }
+        if (playerScript.died == false)
+        {
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) || androidMoveRight == true)
-        {
-            gameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
-            androidMoveRight = false;
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || androidMoveLeft == true)
-        {
-            gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
-            androidMoveLeft = false;
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow) || androidMoveUp == true)
-        {
-            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-            androidMoveUp = false;
+            if (Input.GetKeyDown(KeyCode.RightArrow) || androidMoveRight == true)
+            {
+                gameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
+                androidMoveRight = false;
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || androidMoveLeft == true)
+            {
+                gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
+                androidMoveLeft = false;
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow) || androidMoveUp == true)
+            {
+                gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+                androidMoveUp = false;
 
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow) || androidMoveDown == true)
-        {
-            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
-            androidMoveDown = false;
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow) || androidMoveDown == true)
+            {
+                gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+                androidMoveDown = false;
 
+            }
         }
+
+
     }
-
-
 }
