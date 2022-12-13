@@ -71,7 +71,7 @@ public class GrassScript : MonoBehaviour
                 {
                   
                     alreadyInstantiatedCoin = true;
-                    Instantiate(Coin, new Vector3(randomPlace-0.1f, this.gameObject.transform.position.y + 0f, this.gameObject.transform.position.z-0.3f ), Quaternion.Euler(0, 0, 0));
+                    Instantiate(Coin, new Vector3(randomPlace-0.1f, this.gameObject.transform.position.y + 0f, this.gameObject.transform.position.z-0.1f ), Quaternion.Euler(0, 0, 0));
                 }
             }
         }

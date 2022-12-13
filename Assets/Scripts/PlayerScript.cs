@@ -9,7 +9,7 @@ public class PlayerScript : MonoBehaviour
     public float percentage = 1;
     Vector3 startPos;
     Vector3 endPos;
-    bool firstInput;
+   public bool firstInput;
     public bool justJump = false;
     public float steps = 1f;
 
@@ -39,9 +39,10 @@ public class PlayerScript : MonoBehaviour
     bool setPos = false;
 
     public bool onRaft;
-    bool moveUp = false;
+  public bool moveUp = false;
     bool moveDown = false;
     public int downCount = 0;
+    public int upCount = 0;
     bool onWater = false;
     bool dieAnim = false;
     int factor = 1;
@@ -173,6 +174,7 @@ public class PlayerScript : MonoBehaviour
                 if (startTouchPos.y - 5 <= endTouchPos.y && Mathf.Abs(endTouchPos.y - startTouchPos.y) >= Mathf.Abs(endTouchPos.x - startTouchPos.x - 5) &&touched == false|| Input.touchCount == 0)
                 {
                     touched = true;
+                    
                     androidMoveUp = true;
                 }
                 else if (startTouchPos.x < endTouchPos.x && Mathf.Abs(endTouchPos.y - startTouchPos.y) < Mathf.Abs(endTouchPos.x - startTouchPos.x) && touched == false)
@@ -293,13 +295,15 @@ public class PlayerScript : MonoBehaviour
             validPosition = checkValidJump(endPos);
             clickOnce = true;
             moveUp = true;
+          
             downCount = 0;
             ResetAndroidInput();
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) && clickOnce == false && died == false || (androidMoveDown == true && clickOnce == false && died == false))
         {
             endPos = new Vector3(Mathf.Round(transform.position.x), 0, Mathf.Round(transform.position.z) - steps);
-
+            upCount =0;
+            
             validPosition = checkValidJump(endPos);
             clickOnce = true;
             moveDown = true;
@@ -315,6 +319,8 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow) && clickOnce == false && died == false || (androidMoveRight == true && clickOnce == false && died == false))
 
         {
+            upCount = 0;
+
             endPos = new Vector3(Mathf.Round(transform.position.x) + steps, 0, Mathf.Round(transform.position.z));
 
             validPosition = checkValidJump(endPos);
@@ -326,8 +332,7 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow) && clickOnce == false && died == false || (androidMoveLeft == true && clickOnce == false && died == false))
         {
             endPos = new Vector3(Mathf.Round(transform.position.x) - steps, 0, Mathf.Round(transform.position.z));
-
-
+            upCount = 0;
             validPosition = checkValidJump(endPos);
             clickOnce = true;
             ResetAndroidInput();
@@ -360,7 +365,7 @@ public class PlayerScript : MonoBehaviour
                         if (riverScript.leftToRight == true)
                         {
 
-                            if (nextPosition.x == Mathf.Round(raft.transform.GetChild(i).transform.position.x + 0.24f) && checkRaft == false)
+                            if (nextPosition.x == Mathf.Round(raft.transform.GetChild(i).transform.position.x + 0.22f) && checkRaft == false)
                             {
                                 checkRaft = true;
                                 raftPlayerPos = i;
@@ -369,7 +374,7 @@ public class PlayerScript : MonoBehaviour
                                 nextIsRaft = true;
                                 onRaft = true;
                                 onWater = false;
-                                raftPos = new Vector3(raft.transform.GetChild(raftPlayerPos).transform.position.x + 0.2f, Mathf.Round(transform.position.y), nextPosition.z + 0.1f);
+                                raftPos = new Vector3(raft.transform.GetChild(raftPlayerPos).transform.position.x + 0.15f, Mathf.Round(transform.position.y), nextPosition.z + 0.1f);
 
 
                                 for (int k = 0; k < childNum; k++)
@@ -408,7 +413,7 @@ public class PlayerScript : MonoBehaviour
                                     anim.SetBool("onRaft", true);
                                 }
 
-                                raftPos = new Vector3(raft.transform.GetChild(raftPlayerPos).transform.position.x + 0.2f, Mathf.Round(transform.position.y), nextPosition.z + 0.1f);
+                                raftPos = new Vector3(raft.transform.GetChild(raftPlayerPos).transform.position.x + 0.19f, Mathf.Round(transform.position.y), nextPosition.z + 0.1f);
 
                                 onRaft = true;
                             }
@@ -661,6 +666,7 @@ public class PlayerScript : MonoBehaviour
         }
         else if (moveUp == true)
         {
+            upCount++;
             streetCount++;
 
 

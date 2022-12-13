@@ -48,6 +48,8 @@ public class RiverScript : MonoBehaviour
         if (randomRiverType == 0)
         {
             pattel = true;
+            MakeRiverBorder();
+
             MakePattel();
         }
         else if (randomRiverType == 1 || randomRiverType == 2)
@@ -89,13 +91,13 @@ public class RiverScript : MonoBehaviour
         RiverBorder = floorScript.RightRiverBorder;
         instantiatedBorder = Instantiate(RiverBorder, new Vector3(5, -.65f, transform.position.z), Quaternion.identity);
         instantiatedBorder.transform.SetParent(transform);
-        instantiatedBorder.transform.localScale = new Vector3(instantiatedBorder.transform.localScale.x, instantiatedBorder.transform.localScale.y, 0.01f);
+        instantiatedBorder.transform.localScale = new Vector3(instantiatedBorder.transform.localScale.x, instantiatedBorder.transform.localScale.y, 0.12f);
 
 
         RiverBorder = floorScript.LeftRiverBorder;
         instantiatedBorder = Instantiate(RiverBorder, new Vector3(-8, -.65f, transform.position.z), Quaternion.identity);
         instantiatedBorder.transform.SetParent(transform);
-        instantiatedBorder.transform.localScale = new Vector3(instantiatedBorder.transform.localScale.x, instantiatedBorder.transform.localScale.y, 0.01f);
+        instantiatedBorder.transform.localScale = new Vector3(instantiatedBorder.transform.localScale.x, instantiatedBorder.transform.localScale.y, 0.12f);
 
     }
 

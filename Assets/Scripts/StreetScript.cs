@@ -56,14 +56,14 @@ public class StreetScript : MonoBehaviour
     void MakeCoin()
     {
 
-        int randomCoinNum = Random.Range(0, 15);
+        int randomCoinNum = Random.Range(0, 13);
         if (randomCoinNum == 2)
         {
             GameObject Coin = floorDataScrript.CoinObject;
          
                int randomPlace = Random.Range(-6, 6);
 
-                    Instantiate(Coin, new Vector3(randomPlace, this.gameObject.transform.position.y + 0f, this.gameObject.transform.position.z - 0.24f), Quaternion.Euler(0, 0, 0));
+                    Instantiate(Coin, new Vector3(randomPlace, this.gameObject.transform.position.y + 0f, this.gameObject.transform.position.z - 0.1f), Quaternion.Euler(0, 0, 0));
                 }
             
         

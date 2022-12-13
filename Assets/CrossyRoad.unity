@@ -1452,7 +1452,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0.33682406, y: -0.16317599, z: 0.059391193, w: 0.92541665}
-  m_LocalPosition: {x: -2.5, y: 1, z: 7}
+  m_LocalPosition: {x: 1, y: 7.28, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1476,6 +1476,7 @@ MonoBehaviour:
   DeathBird: {fileID: 4344062655366812059, guid: fe4d641c0a3fda440a266ee2431c12e6, type: 3}
   birdDeath: 0
   birdCatch: 0
+  moveSpeed: 1
 --- !u!1 &588232120
 GameObject:
   m_ObjectHideFlags: 0
@@ -3002,7 +3003,7 @@ Transform:
   m_GameObject: {fileID: 1332970219}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.4, y: 0.37, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 373480553}
@@ -3022,6 +3023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   percentage: 1
+  firstInput: 0
   justJump: 0
   steps: 1
   Player: {fileID: 1332970219}
@@ -3035,7 +3037,9 @@ MonoBehaviour:
   woodSpeed: 3
   floorData: {fileID: 1909275850}
   onRaft: 0
+  moveUp: 0
   downCount: 0
+  upCount: 0
   RiverDeathPrefab: {fileID: 4135501154226566062, guid: bd49c75282067ce439df069419d6444e, type: 3}
   streetCountText: {fileID: 1983952395}
   riverDeath: 0
@@ -3989,8 +3993,8 @@ MonoBehaviour:
   trafficLightObject: {fileID: 3295282689218901801, guid: 89d45107aeffe594ebd1e1170c02afa0, type: 3}
   trainObject: {fileID: 8249813199354938491, guid: bd3cabf2d92348e4d9f163e9c261072d, type: 3}
   pattelObject: {fileID: 1503054470258347444, guid: 3cbf3a3c9f6f3db4e9dc7f1f0bfd10a3, type: 3}
-  LeftRiverBorder: {fileID: 1555130022778411024, guid: 6defc6ab031e2fe4c8092885f02e4905, type: 3}
-  RightRiverBorder: {fileID: 1555130022778411024, guid: 6defc6ab031e2fe4c8092885f02e4905, type: 3}
+  LeftRiverBorder: {fileID: 2626035020511991993, guid: c7a5e274f1ff2534c80bbb5a85762bf4, type: 3}
+  RightRiverBorder: {fileID: 2626035020511991993, guid: c7a5e274f1ff2534c80bbb5a85762bf4, type: 3}
   WaterAnimParent: {fileID: 0}
   CoinObject: {fileID: 159583087937338005, guid: 3064a5c6261bbc74fa18c6baecca6d9a, type: 3}
   rowNum: 0

@@ -20,8 +20,10 @@ public class PlayerFollow : MonoBehaviour
     public bool birdCatch = false;
 
     int resetSeconds = 5;
-      
-    
+    public float moveSpeed = 1f;
+    float maxMoveSpeed = 2.2f;
+    bool callBirdDeath = false;
+
     private void Start()
     {
         playerScript = Player.GetComponent<PlayerScript>();
@@ -31,52 +33,124 @@ public class PlayerFollow : MonoBehaviour
 
     void Update()
     {
-     
 
-        if (playerScript.died == false && Player.transform.position.x < 9 && Player.transform.position.x > -8 && birdDeath == false && birdCatch ==false )
+        if (playerScript.firstInput && playerScript.died == false && birdCatch == false)
         {
-            if (playerScript.downCount > 1)
-            {
-                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, new Vector3(Player.transform.position.x-4.5f, newPos.y, newPos.z), Time.deltaTime * 2f);
 
+            transform.position += new Vector3(0, 0, 1) * Time.deltaTime * moveSpeed;
+
+            if (Mathf.Round((gameObject.transform.position.z - playerScript.transform.position.z))-1.5 == 0.5f && callBirdDeath == false)
+            {
+                BirdDeath();
+                callBirdDeath = true;
+            }
+
+            else if (Mathf.Abs(gameObject.transform.position.z - playerScript.transform.position.z) <= 1.5)
+            {
+
+                if (moveSpeed > 0.5f)
+                {
+                    moveSpeed -= Time.deltaTime * 3;
+
+                 
+
+                }
+                else
+                {
+                    moveSpeed = .5f;
+                }
 
             }
-            else
+            else if ((Mathf.Abs(gameObject.transform.position.z - playerScript.transform.position.z) > 1.5) && (Mathf.Abs(gameObject.transform.position.z - playerScript.transform.position.z) <= 3))
             {
-                
+                if (moveSpeed > 0.65f)
+                {
+                    moveSpeed -= Time.deltaTime * 3;
 
-                newPos = new Vector3(Player.transform.position.x-2.5f, Player.transform.position.y, Player.transform.position.z + 7);
-                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position,newPos, Time.deltaTime *multiplier );
 
+                }
+                else
+                {
+                    moveSpeed = .65f;
+                }
             }
+
+
+            else if ((Mathf.Abs(gameObject.transform.position.z - playerScript.transform.position.z) > 3) && (Mathf.Abs(gameObject.transform.position.z - playerScript.transform.position.z) <= 6))
+            {
+
+                if (moveSpeed > 1.1f)
+                {
+                    moveSpeed -= Time.deltaTime * 3;
+
+
+                }
+                else
+                {
+                    moveSpeed = 1.1f;
+                }
+            }
+            else if ((Mathf.Abs(gameObject.transform.position.z - playerScript.transform.position.z) > 7))
+            {
+
+                if (moveSpeed > 2.1f)
+                {
+                    moveSpeed -= Time.deltaTime * 3;
+
+
+                }
+                else
+                {
+                    moveSpeed = 2.1f;
+                }
+            }
+        }
+
+
+
+
+
+
+
+        if (playerScript.firstInput && playerScript.died == false && Player.transform.position.x < 9 && Player.transform.position.x > -8 && birdDeath == false && birdCatch == false && playerScript.moved == true)
+        {
+
+            newPos = new Vector3(Mathf.Lerp(transform.localPosition.x, Player.transform.localPosition.x + 1, Time.deltaTime * 3), transform.localPosition.y, transform.localPosition.z);
+
+
+            transform.position = newPos;
 
         }
 
-  
+        if (playerScript.moved == true && alreadyCalled == false && playerScript.died == false && playerScript.moveUp == true)
+        {
 
-        if (playerScript.moved == true && alreadyCalled == false && playerScript.died == false)
-         {
-          
             alreadyCalled = true;
 
-            ActivateCoundown();
-            multiplier = 3f;
 
-
-
-
-
+            moveSpeed = maxMoveSpeed;
+            if (gameObject.transform.position.z - playerScript.transform.position.z >= 7)
+            {
+                moveSpeed += 1f;
+            }
         }
+
+
+      
         if (birdDeath == true)
         {
-          
-              
+
+
             instantiatedObject.transform.position += new Vector3(0, 0, -1) * Time.deltaTime * 40;
-            
-            if (birdCatch ==false)
+
+            if (birdCatch == false)
+
+            {
                 
-                {
-                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, new Vector3 (Player.transform.position.x, Player.transform.position.y, Player.transform.position.z) , Time.deltaTime * .5f);
+                newPos = new Vector3(transform.localPosition.x, transform.localPosition.y,Mathf.Lerp(transform.localPosition.z, Player.transform.localPosition.z -4, Time.deltaTime * 3));
+
+
+                transform.position = newPos;
             }
             if (instantiatedObject.transform.position.z <= Player.transform.position.z)
 
@@ -88,9 +162,12 @@ public class PlayerFollow : MonoBehaviour
     }
 
 
+
+
+
     void ActivateCoundown()
     {
-       
+
 
 
         if (countDownActive == false)
@@ -130,7 +207,7 @@ public class PlayerFollow : MonoBehaviour
 
         while (secondsToWait > 0)
         {
-         
+
             multiplier -= 0.3f;
             secondsToWait--;
             if (secondsToWait == 0)
@@ -146,7 +223,7 @@ public class PlayerFollow : MonoBehaviour
         }
         countDownActive = false;
         startAgain = false;
-      
+
         if (secondsToWait != 0)
         {
 
@@ -158,18 +235,18 @@ public class PlayerFollow : MonoBehaviour
 
     public void BirdDeath()
     {
-        if (playerScript.riverDeath == false && playerScript.died ==false)
+        if (playerScript.riverDeath == false && playerScript.died == false)
         {
 
             StopCoroutine(CountDown(secondsToWait));
             FindObjectOfType<AudioManager>().Play("Eagle");
-            if(Player.transform.position.x > -8 && Player.transform.position.x < 7)
+            if (Player.transform.position.x > -8 && Player.transform.position.x < 7)
             {
 
-            birdDeath = true;
+                birdDeath = true;
                 playerScript.birdDeath = true;
-            instantiatedObject = Instantiate(DeathBird, new Vector3(Player.transform.position.x+0.2f, 2, Player.transform.position.z + 15), Quaternion.identity);
-            Invoke("Death", 0.6f);
+                instantiatedObject = Instantiate(DeathBird, new Vector3(Player.transform.position.x + 0.2f, 2, Player.transform.position.z + 15), Quaternion.identity);
+                Invoke("Death", 0.6f);
             }
         }
     }
